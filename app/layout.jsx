@@ -5,6 +5,8 @@ import Footer from '../components/layout/Footer';
 import SvgTemplates from '../components/SvgTemplates';
 import ScrollAnimations from '../components/ScrollAnimations';
 import ScrollToTop from '../components/ScrollToTop';
+import BasePathBootstrap from '../components/BasePathBootstrap';
+import { basePath } from '../lib/site-paths';
 
 const siteTitle = 'Sourabh Chouhan — Frontend Developer';
 const siteDescription =
@@ -16,7 +18,7 @@ function getMetadataBase() {
   const url =
     process.env.NEXT_PUBLIC_SITE_URL ??
     (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
-  return new URL(url);
+  return new URL(url.endsWith('/') ? url : `${url}/`);
 }
 
 export const metadata = {
@@ -57,6 +59,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
+        <BasePathBootstrap />
         <div id="main">
           <div className="framer-3wnNZ framer-1u2jidb" data-layout-template="true" style={{ minHeight: '100vh', width: 'auto' }}>
             <Navbar />
@@ -71,7 +74,7 @@ export default function RootLayout({ children }) {
           id="about-enhancing"
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
-            __html: "if (window.location.pathname.startsWith('/about')) document.documentElement.dataset.aboutEnhancing = 'true';",
+            __html: `(function(){var bp=${JSON.stringify(basePath)};var p=window.location.pathname;if(bp&&p.indexOf(bp)===0)p=p.slice(bp.length)||'/';if(p.startsWith('/about'))document.documentElement.dataset.aboutEnhancing='true';})();`,
           }}
         />
       </body>

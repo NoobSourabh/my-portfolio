@@ -3,6 +3,7 @@
 import { useEffect, useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { usePathname, useRouter } from 'next/navigation';
+import { getBrowserAppPathname, stripBasePath } from '../../lib/site-paths';
 
 export default function Navbar() {
   const navRef = useRef(null);
@@ -28,7 +29,8 @@ export default function Navbar() {
     event.preventDefault();
     const checkbox = navRef.current?.querySelector('.navbar-mobile-checkbox');
     if (checkbox) checkbox.checked = false;
-    router.push(`${destination.pathname}${destination.search}${destination.hash}`);
+    const appPath = stripBasePath(destination.pathname);
+    router.push(`${appPath}${destination.search}${destination.hash}`);
   };
 
   useLayoutEffect(() => {
@@ -38,7 +40,7 @@ export default function Navbar() {
     const nav = navRef.current;
     if (pathname !== '/' || !nav || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
 
-    const isInitialHomeLoad = window.__portfolioHomeIntroEligible ??= window.location.pathname === '/';
+    const isInitialHomeLoad = window.__portfolioHomeIntroEligible ??= getBrowserAppPathname() === '/';
     if (!isInitialHomeLoad) return undefined;
 
     // Allow React Strict Mode to replay this effect on the same mount, but skip

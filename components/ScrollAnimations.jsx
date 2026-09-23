@@ -3,6 +3,7 @@
 import { useLayoutEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import { gsap } from 'gsap';
+import { getBrowserAppPathname } from '../lib/site-paths';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const TEXT_SELECTORS = [
@@ -38,7 +39,7 @@ export default function ScrollAnimations() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
 
     gsap.registerPlugin(ScrollTrigger);
-    const isInitialHomeLoad = window.__portfolioHomeIntroEligible ??= window.location.pathname === '/';
+    const isInitialHomeLoad = window.__portfolioHomeIntroEligible ??= getBrowserAppPathname() === '/';
     const shouldAnimateHeroVisuals = pathname === '/' && isInitialHomeLoad && (
       !window.__portfolioHeroVisualsPlayed || (heroVisualsAnimatedHereRef.current && samePathReplay)
     );

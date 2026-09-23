@@ -3,6 +3,7 @@
 import { useLayoutEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { getBrowserAppPathname } from '../lib/site-paths'
 
 const intro = 'I build modern frontend experiences that are easy to use, fast to load, and simple to maintain.'
 const highlightedLines = [
@@ -27,7 +28,7 @@ export default function ScrollIntro() {
     if (!section || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
 
     gsap.registerPlugin(ScrollTrigger)
-    const isInitialHomeLoad = window.__portfolioHomeIntroEligible ??= window.location.pathname === '/'
+    const isInitialHomeLoad = window.__portfolioHomeIntroEligible ??= getBrowserAppPathname() === '/'
     const shouldAnimate = isInitialHomeLoad && (!window.__portfolioAboutIntroPlayed || animationStartedHereRef.current)
     const firstWords = section.querySelectorAll('[data-intro-line="plain"] .intro-word')
     const highlightedWords = section.querySelectorAll('[data-intro-line="highlight"] .intro-word')

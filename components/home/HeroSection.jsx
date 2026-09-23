@@ -2,6 +2,7 @@
 
 import { useRef, useLayoutEffect, useState } from 'react';
 import { gsap } from 'gsap';
+import { getBrowserAppPathname } from '../../lib/site-paths';
 
 const MOBILE_MAX_WIDTH = 809.98;
 
@@ -58,7 +59,7 @@ export default function HeroSection() {
     // Keep the opening shot full screen for two seconds, then fly it back into its slot.
     // Window-scoped state survives client navigation but resets on a full refresh.
     const isMobile = isMobileViewport();
-    const isInitialHomeLoad = window.__portfolioHomeIntroEligible ??= window.location.pathname === '/';
+    const isInitialHomeLoad = window.__portfolioHomeIntroEligible ??= getBrowserAppPathname() === '/';
     const shouldPlayIntro = !isMobile && isInitialHomeLoad && (!window.__portfolioHeroIntroPlayed || introStartedHereRef.current);
     let introTimer;
     let settleTimer;

@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { stripBasePath } from '../../lib/site-paths';
 
 export default function Footer() {
   const router = useRouter();
@@ -15,7 +16,8 @@ export default function Footer() {
     if (destination.origin !== window.location.origin) return;
 
     event.preventDefault();
-    router.push(`${destination.pathname}${destination.search}${destination.hash}`);
+    const appPath = stripBasePath(destination.pathname);
+    router.push(`${appPath}${destination.search}${destination.hash}`);
   };
 
   return (
