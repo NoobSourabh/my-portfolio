@@ -30,7 +30,7 @@ export default function ScrollIntro() {
 
       section.dataset.revealActive = 'true'
       gsap.set([...firstWords, ...highlightedWords], { autoAlpha: 0, yPercent: 35 })
-      gsap.set(highlightSweep, { backgroundSize: '0% 70%' })
+      gsap.set(highlightSweep, { clipPath: 'inset(0 100% 0 0 round 0.25em)' })
 
       const timeline = gsap.timeline({
         scrollTrigger: {
@@ -48,9 +48,9 @@ export default function ScrollIntro() {
         stagger: 0.035,
       })
       timeline.to(highlightSweep, {
-        backgroundSize: '100% 70%',
-        duration: 1.05,
-        ease: 'power1.inOut',
+        clipPath: 'inset(0 0% 0 0 round 0.25em)',
+        duration: Math.max(1.35, highlightedWords.length * 0.055),
+        ease: 'none',
       }, '>-0.08')
       timeline.to(highlightedWords, {
         autoAlpha: 1,
@@ -67,7 +67,10 @@ export default function ScrollIntro() {
   return (
     <div className="scroll-intro" ref={sectionRef}>
       <p className="statement" data-intro-line="plain"><Words>{intro}</Words></p>
-      <p className="statement statement-highlight" data-intro-line="highlight"><span className="highlight-sweep"><Words>{highlighted}</Words></span></p>
+      <p className="statement statement-highlight" data-intro-line="highlight">
+        <span className="highlight-sweep" aria-hidden="true" />
+        <span className="highlight-copy"><Words>{highlighted}</Words></span>
+      </p>
     </div>
   )
 }

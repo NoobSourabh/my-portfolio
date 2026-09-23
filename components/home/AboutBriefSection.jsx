@@ -1,3 +1,5 @@
+import ScrollIntro from '../ScrollIntro';
+
 const tools = [
   ['React', '/images/tools/react.svg'],
   ['TypeScript', '/images/tools/typescript.svg'],
@@ -37,8 +39,7 @@ export default function AboutBriefSection() {
           </div>
 
           <div className="about-orbit__content">
-            <p>I build modern frontend experiences that are easy to use, fast to load, and simple to maintain.</p>
-            <p><mark>The goal is simple: turn ideas into clear, accessible interfaces that feel great on every screen.</mark></p>
+            <ScrollIntro />
             <a href="/about">About Sourabh</a>
           </div>
         </div>

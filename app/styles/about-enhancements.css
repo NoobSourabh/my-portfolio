@@ -98,6 +98,7 @@
 .about-experience-entry__company {
   color: #111;
   font: 400 16px/1.4 "DM Sans", sans-serif;
+  white-space: nowrap;
 }
 
 .about-experience-entry__period {
@@ -127,5 +128,9 @@
 
   .about-experience-entry__role {
     font-size: 22px;
+  }
+
+  .about-experience-entry__company {
+    white-space: normal;
   }
 }

@@ -18,9 +18,9 @@ export default function HomePage() {
     >
       <HeroSection />
       <AboutBriefSection />
-      <BackedByWorkSection />
       <SelectedWorkSection />
       <ServicesSection />
+      <BackedByWorkSection />
     </div>
   );
 }
