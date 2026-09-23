@@ -1,6 +1,19 @@
+function getBasePath() {
+  return document.querySelector('meta[name="base-path"]')?.content ?? '';
+}
+
+function asset(path) {
+  const base = getBasePath();
+  const normalized = path.startsWith('/') ? path : `/${path}`;
+  if (!base || normalized.startsWith(`${base}/`) || normalized === base) {
+    return normalized;
+  }
+  return `${base}${normalized}`;
+}
+
 (async function hydrateProfile() {
   try {
-    const response = await fetch('/profile.json', { cache: 'no-store' });
+    const response = await fetch(asset('/profile.json'), { cache: 'no-store' });
     if (!response.ok) throw new Error('Profile data could not be loaded.');
     const data = await response.json();
 
@@ -30,7 +43,7 @@
 
     data.imageBindings.forEach(function (binding) {
       document.querySelectorAll(binding.selector).forEach(function (image) {
-        image.src = binding.src;
+        image.src = asset(binding.src);
         image.removeAttribute('srcset');
         image.removeAttribute('sizes');
         image.alt = binding.alt;
@@ -288,7 +301,7 @@
       card.dataset.impactSummitCard = 'true';
       card.innerHTML = `
         <div class="impact-summit-card__logo-header">
-          <img class="impact-summit-card__logo" src="/images/rsenl transparent logo.svg" alt="RSENL AI Labs" />
+          <img class="impact-summit-card__logo" src="${asset('/images/rsenl transparent logo.svg')}" alt="RSENL AI Labs" />
         </div>
         <div class="impact-summit-card__copy">
           <h3 class="impact-summit-card__title">Represented RSENL AI Labs at the India AI Impact Summit 2026.</h3>
@@ -297,14 +310,14 @@
         <div class="impact-summit-gallery" role="region" aria-label="AI summit moments">
           <div class="impact-summit-track">
             <div class="impact-summit-sequence">
-              <img src="/images/india-ai-summit-stage.png" alt="AI summit stage with an abstract light installation" loading="lazy" />
-              <img src="/images/india-ai-summit-exhibition.png" alt="AI exhibition installation with visitors in silhouette" loading="lazy" />
-              <img src="/images/india-ai-summit-demo.png" alt="People exploring an interactive AI demonstration" loading="lazy" />
+              <img src="${asset('/images/india-ai-summit-stage.png')}" alt="AI summit stage with an abstract light installation" loading="lazy" />
+              <img src="${asset('/images/india-ai-summit-exhibition.png')}" alt="AI exhibition installation with visitors in silhouette" loading="lazy" />
+              <img src="${asset('/images/india-ai-summit-demo.png')}" alt="People exploring an interactive AI demonstration" loading="lazy" />
             </div>
             <div class="impact-summit-sequence" aria-hidden="true">
-              <img src="/images/india-ai-summit-stage.png" alt="" loading="lazy" />
-              <img src="/images/india-ai-summit-exhibition.png" alt="" loading="lazy" />
-              <img src="/images/india-ai-summit-demo.png" alt="" loading="lazy" />
+              <img src="${asset('/images/india-ai-summit-stage.png')}" alt="" loading="lazy" />
+              <img src="${asset('/images/india-ai-summit-exhibition.png')}" alt="" loading="lazy" />
+              <img src="${asset('/images/india-ai-summit-demo.png')}" alt="" loading="lazy" />
             </div>
           </div>
         </div>

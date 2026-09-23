@@ -6,13 +6,13 @@ import SvgTemplates from '../components/SvgTemplates';
 import ScrollAnimations from '../components/ScrollAnimations';
 import ScrollToTop from '../components/ScrollToTop';
 import BasePathBootstrap from '../components/BasePathBootstrap';
-import { basePath } from '../lib/site-paths';
+import { basePath, withBasePath } from '../lib/site-paths';
 
 const siteTitle = 'Sourabh Chouhan — Frontend Developer';
 const siteDescription =
   'Sourabh Chouhan - Frontend Developer portfolio showcasing responsive web apps, landing pages, and AI projects.';
-const faviconImage = '/images/mascot%20Background%20Removed.png';
-const shareImage = '/images/mascot.png';
+const faviconImage = withBasePath('/images/mascot%20Background%20Removed.png');
+const shareImage = withBasePath('/images/mascot.png');
 
 function getMetadataBase() {
   const url =
@@ -30,7 +30,7 @@ export const metadata = {
     shortcut: faviconImage,
     apple: faviconImage,
   },
-  manifest: '/site.webmanifest',
+  manifest: withBasePath('/site.webmanifest'),
   appleWebApp: {
     title: 'Sourabh Chouhan',
   },
@@ -58,6 +58,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {basePath ? <meta name="base-path" content={basePath} /> : null}
+      </head>
       <body>
         <BasePathBootstrap />
         <div id="main">

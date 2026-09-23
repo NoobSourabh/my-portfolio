@@ -8,6 +8,7 @@ export NEXT_PUBLIC_BASE_PATH=/myportfolio
 export NEXT_PUBLIC_SITE_URL=https://noobsourabh.github.io/myportfolio
 
 npm run build
+node scripts/prefix-export-paths.mjs
 
 cd out
 rm -rf .git
