@@ -1,0 +1,16 @@
+{
+  "name": "alex-morgan-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "gsap": "^3.12.7",
+    "next": "16.3.5",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  }
+}
