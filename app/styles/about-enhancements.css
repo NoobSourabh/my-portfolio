@@ -1,3 +1,41 @@
+/* Framer exports use display:contents on the page root, which breaks desktop flex sizing. */
+[data-about-page] {
+  width: 100%;
+  align-self: stretch;
+  flex: 1 1 auto;
+}
+
+.framer-U12Cq[data-framer-root] {
+  display: flex !important;
+  flex-direction: column;
+  width: 100% !important;
+  min-height: 100vh;
+}
+
+@media (min-width: 1200px) {
+  .framer-U12Cq .framer-mqsp36,
+  .framer-U12Cq .framer-18f6q1j,
+  .framer-U12Cq .framer-i4i99z {
+    width: 100% !important;
+  }
+
+  .framer-U12Cq .framer-13xp4il {
+    width: 100% !important;
+    max-width: 1360px !important;
+    flex: 1 1 auto !important;
+  }
+
+  .framer-U12Cq .framer-2sbxu2 {
+    width: 60% !important;
+    flex: 0 0 auto !important;
+  }
+
+  .framer-U12Cq .framer-10bpqqt {
+    flex: 1 1 0 !important;
+    min-width: 64px !important;
+  }
+}
+
 .about-scroll-progress .about-scroll-progress__frame {
   position: relative !important;
   display: flex !important;
@@ -72,11 +110,13 @@
 }
 
 .about-experience-entry {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
-  align-items: baseline;
-  gap: 24px;
-  width: 100%;
+  box-sizing: border-box;
+  display: flex !important;
+  flex: none;
+  align-self: stretch;
+  align-items: center;
+  gap: 60px;
+  width: 100% !important;
   padding: 24px 0;
   border-top: 1px solid #ededed;
 }
@@ -91,19 +131,31 @@
 
 .about-experience-entry__role {
   color: #111;
+  flex: 1 1 0;
+  min-width: 0;
   font: 500 24px/1.1 "DM Sans", sans-serif;
   letter-spacing: -0.02em;
 }
 
 .about-experience-entry__company {
   color: #111;
+  flex: 0 0 20%;
+  width: 20%;
   font: 400 16px/1.4 "DM Sans", sans-serif;
+  text-align: left !important;
   white-space: nowrap;
+}
+
+.about-experience-entry__college-break {
+  display: none;
 }
 
 .about-experience-entry__period {
   color: #111;
+  flex: 1 1 0;
+  min-width: 0;
   font: 400 16px/1.4 "DM Sans", sans-serif;
+  text-align: right !important;
   white-space: nowrap;
 }
 
@@ -122,8 +174,16 @@
   }
 
   .about-experience-entry {
+    display: grid !important;
     grid-template-columns: 1fr;
     gap: 10px;
+  }
+
+  .about-experience-entry__role,
+  .about-experience-entry__company,
+  .about-experience-entry__period {
+    width: 100% !important;
+    text-align: left !important;
   }
 
   .about-experience-entry__role {
@@ -133,4 +193,35 @@
   .about-experience-entry__company {
     white-space: normal;
   }
+}
+
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .about-experience-entry {
+    gap: 24px;
+  }
+
+  .about-experience-entry__company {
+    flex-basis: 280px;
+    width: 280px;
+  }
+
+  .about-experience-entry[data-about-experience="student"] .about-experience-entry__company {
+    white-space: normal;
+  }
+
+  .about-experience-entry__college-break {
+    display: block;
+  }
+}
+
+/* Show the About hero background portrait at 80% of its previous scale. */
+.framer-18f6q1j .framer-1ewvsn3 [data-framer-background-image-wrapper] img {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 80% !important;
+  height: 80% !important;
+  object-fit: contain !important;
+  transform: scale(1.5);
+  transform-origin: center;
 }

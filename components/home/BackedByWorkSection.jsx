@@ -98,11 +98,17 @@ function TestimonialCard() {
         <p>Worked with startups and teams to design and build React &amp; Next.js apps that support real business goals.</p>
       </div>
       <div className="testimonial-stack">
-        <blockquote className="testimonial-bubble testimonial-bubble--dark">
-          “Working with Sourabh was smooth from start to finish. He understood our goals quickly and delivered a frontend that feels clear, modern, and easy to manage.”
+        <blockquote
+          className="testimonial-bubble testimonial-bubble--dark"
+          title="Working with Sourabh was smooth from start to finish. He understood our goals quickly and delivered a frontend that feels clear, modern, and easy to manage."
+        >
+          <p>“Working with Sourabh was smooth from start to finish. He understood our goals quickly and delivered a frontend that feels clear, modern, and easy to manage.”</p>
         </blockquote>
-        <blockquote className="testimonial-bubble testimonial-bubble--light">
-          “Sourabh’s attention to detail really stood out. The frontend he built not only looks great, but also performs well and is easy for our team to update.”
+        <blockquote
+          className="testimonial-bubble testimonial-bubble--light"
+          title="Sourabh’s attention to detail really stood out. The frontend he built not only looks great, but also performs well and is easy for our team to update."
+        >
+          <p>“Sourabh’s attention to detail really stood out. The frontend he built not only looks great, but also performs well and is easy for our team to update.”</p>
         </blockquote>
       </div>
     </article>

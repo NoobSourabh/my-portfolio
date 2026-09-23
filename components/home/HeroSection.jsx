@@ -1,18 +1,69 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useLayoutEffect, useState } from 'react';
+import { gsap } from 'gsap';
 
 export default function HeroSection() {
   const videoRef = useRef(null);
   const videoSlotRef = useRef(null);
+  const introStartedHereRef = useRef(false);
+  const heroCopyAnimatedHereRef = useRef(false);
   const [introPhase, setIntroPhase] = useState('fullscreen');
+  const [isHomepageReturn, setIsHomepageReturn] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    if (introPhase !== 'settled' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+    if (window.__portfolioHeroCopyPlayed && !heroCopyAnimatedHereRef.current) return undefined;
+
+    window.__portfolioHeroCopyPlayed = true;
+    heroCopyAnimatedHereRef.current = true;
+
+    const hero = document.getElementById('hero');
+    if (!hero) return undefined;
+
+    const visible = (selector) => [...hero.querySelectorAll(selector)]
+      .filter((element) => element.getClientRects().length > 0);
+    const eyebrow = visible('.framer-1ns3x67 p');
+    const heading = visible('.framer-14dkztq h1');
+    const description = visible('.framer-10y77co p');
+    const buttons = visible('.framer-1luurh7 a');
+
+    const context = gsap.context(() => {
+      const textFrom = { autoAlpha: 0, y: 24, filter: 'blur(10px)' };
+      gsap.set(eyebrow, textFrom);
+      gsap.set(heading, textFrom);
+      gsap.set(description, textFrom);
+      gsap.set(buttons, { autoAlpha: 0, y: 16, scale: 0.96, filter: 'blur(8px)' });
+
+      gsap.timeline()
+        .to(eyebrow, { autoAlpha: 1, y: 0, filter: 'blur(0px)', duration: 0.5, ease: 'power3.out' })
+        .to(heading, { autoAlpha: 1, y: 0, filter: 'blur(0px)', duration: 0.72, ease: 'power3.out' })
+        .to(description, { autoAlpha: 1, y: 0, filter: 'blur(0px)', duration: 0.62, ease: 'power3.out' })
+        .to(buttons, { autoAlpha: 1, y: 0, scale: 1, filter: 'blur(0px)', duration: 0.56, stagger: 0.12, ease: 'power3.out' });
+    }, hero);
+
+    return () => context.revert();
+  }, [introPhase]);
+
+  useLayoutEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
     // Keep the opening shot full screen for two seconds, then fly it back into its slot.
-    const introTimer = window.setTimeout(() => {
+    // Window-scoped state survives client navigation but resets on a full refresh.
+    const isInitialHomeLoad = window.__portfolioHomeIntroEligible ??= window.location.pathname === '/';
+    const shouldPlayIntro = isInitialHomeLoad && (!window.__portfolioHeroIntroPlayed || introStartedHereRef.current);
+    let introTimer;
+
+    if (shouldPlayIntro) {
+      window.__portfolioHeroIntroPlayed = true;
+      introStartedHereRef.current = true;
+    } else {
+      setIsHomepageReturn(true);
+      setIntroPhase('settled');
+    }
+
+    if (shouldPlayIntro) introTimer = window.setTimeout(() => {
       const slot = videoSlotRef.current;
       if (!slot) return;
 
@@ -69,7 +120,7 @@ export default function HeroSection() {
     });
 
     return () => {
-      window.clearTimeout(introTimer);
+      if (introTimer) window.clearTimeout(introTimer);
       cancelAnimationFrame(animId);
       video.removeEventListener('ended', handleEnded);
       wrapper?.removeEventListener('transitionend', handleIntroReturn);
@@ -77,7 +128,7 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className={`framer-15w1qw8 hero-intro-${introPhase}`} data-framer-name="Hero" id="hero">
+    <section className={`framer-15w1qw8 hero-intro-${introPhase}${isHomepageReturn ? ' hero-intro-return' : ''}`} data-framer-name="Hero" id="hero">
       <div className="framer-1p46al4" data-framer-name="Container">
         <div className="framer-1g9zx9" data-framer-name="Header">
           <div id="hero-video-slot" ref={videoSlotRef}>

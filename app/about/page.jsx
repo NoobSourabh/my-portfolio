@@ -9,8 +9,15 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <>
-      <AboutContent />
-      <AboutEnhancements />
+      <style>{`
+        html[data-about-enhancing] [data-about-page] {
+          visibility: hidden;
+        }
+      `}</style>
+      <div data-about-page>
+        <AboutContent />
+        <AboutEnhancements />
+      </div>
     </>
   );
 }

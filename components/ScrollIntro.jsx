@@ -20,17 +20,29 @@ function Words({ children }) {
 
 export default function ScrollIntro() {
   const sectionRef = useRef(null)
+  const animationStartedHereRef = useRef(false)
 
   useLayoutEffect(() => {
     const section = sectionRef.current
     if (!section || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
 
     gsap.registerPlugin(ScrollTrigger)
-    const context = gsap.context(() => {
-      const firstWords = section.querySelectorAll('[data-intro-line="plain"] .intro-word')
-      const highlightedWords = section.querySelectorAll('[data-intro-line="highlight"] .intro-word')
-      const highlightLines = section.querySelectorAll('.highlight-line')
+    const isInitialHomeLoad = window.__portfolioHomeIntroEligible ??= window.location.pathname === '/'
+    const shouldAnimate = isInitialHomeLoad && (!window.__portfolioAboutIntroPlayed || animationStartedHereRef.current)
+    const firstWords = section.querySelectorAll('[data-intro-line="plain"] .intro-word')
+    const highlightedWords = section.querySelectorAll('[data-intro-line="highlight"] .intro-word')
+    const highlightLines = section.querySelectorAll('.highlight-line')
 
+    if (!shouldAnimate) {
+      gsap.set([...firstWords, ...highlightedWords], { autoAlpha: 1, yPercent: 0 })
+      gsap.set(highlightLines, { '--highlight-progress': '100%' })
+      return undefined
+    }
+
+    window.__portfolioAboutIntroPlayed = true
+    animationStartedHereRef.current = true
+
+    const context = gsap.context(() => {
       section.dataset.revealActive = 'true'
       gsap.set([...firstWords, ...highlightedWords], { autoAlpha: 0, yPercent: 35 })
       gsap.set(highlightLines, { '--highlight-progress': '0%' })

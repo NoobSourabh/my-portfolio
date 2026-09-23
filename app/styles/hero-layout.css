@@ -48,6 +48,12 @@
   border: 1px solid var(--token-8ac823af-7d80-4133-952a-528a09c81339, rgb(237, 237, 237));
 }
 
+/* Keep the opening navigation above the fullscreen video while it plays. */
+.framer-1jk3wwm-container {
+  position: relative;
+  z-index: 10001;
+}
+
 #hero-video-wrapper.hero-video-fullscreen,
 #hero-video-wrapper.hero-video-returning {
   position: fixed;
@@ -162,23 +168,18 @@
   opacity: 0;
 }
 
-#hero.hero-intro-settled .framer-1ws1c3f,
+#hero.hero-intro-settled .framer-1ws1c3f {
+  visibility: visible;
+  opacity: 1;
+}
+
 #hero.hero-intro-settled .framer-1a1apuj {
   visibility: visible;
-  animation: hero-content-reveal 700ms cubic-bezier(0.2, 0, 0, 1) both;
+  animation: hero-content-reveal 700ms cubic-bezier(0.2, 0, 0, 1) 180ms both;
 }
 
-#hero.hero-intro-settled .framer-mklr9n > div:nth-child(2) {
-  animation: hero-content-reveal 700ms cubic-bezier(0.2, 0, 0, 1) 100ms both;
-}
-
-#hero.hero-intro-settled .framer-10y77co,
-#hero.hero-intro-settled .framer-1luurh7 {
-  animation: hero-content-reveal 700ms cubic-bezier(0.2, 0, 0, 1) 220ms both;
-}
-
-#hero.hero-intro-settled .framer-1a1apuj {
-  animation-delay: 180ms;
+#hero.hero-intro-return .framer-1a1apuj {
+  animation: none;
 }
 
 @keyframes hero-content-reveal {
@@ -193,11 +194,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  #hero.hero-intro-settled .framer-1ws1c3f,
-  #hero.hero-intro-settled .framer-1a1apuj,
-  #hero.hero-intro-settled .framer-mklr9n > div:nth-child(2),
-  #hero.hero-intro-settled .framer-10y77co,
-  #hero.hero-intro-settled .framer-1luurh7 {
+  #hero.hero-intro-settled .framer-1a1apuj {
     animation-duration: 1ms;
     animation-delay: 0ms;
   }

@@ -252,12 +252,23 @@
 }
 
 .testimonial-bubble {
-  display: block;
   margin: 0;
-  padding: 16px 20px;
+  padding: 14px 18px;
   border-radius: 18px;
-  font: 400 16px/1.4 "DM Sans", sans-serif;
+  font: 400 15px/1.35 "DM Sans", sans-serif;
   letter-spacing: -0.02em;
+}
+
+.testimonial-bubble p {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  margin: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
 }
 
 .testimonial-bubble--dark {

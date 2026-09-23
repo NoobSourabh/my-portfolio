@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 
 const aboutCopy =
   'I’m a frontend developer who enjoys turning ideas into clear, responsive, and purposeful digital experiences. I’m currently exploring AI automation and automated image-generation pipelines for clients such as clothing brands—creating AI-powered photoshoot and catalogue imagery that can replace manual photoshoots and reduce production costs by up to 90%. I’m also deepening my backend development skills with the goal of becoming a full-stack developer.';
@@ -11,19 +11,35 @@ const developmentCopy =
 const collaborationCopy =
   'I work closely with clients and teams from early concepts through launch, translating business goals into reliable frontend experiences. Alongside React and Next.js, I’m exploring backend development and AI automations so I can contribute across the stack and build smarter workflows that save time and reduce production costs.';
 
+const applyParagraphCopy = (paragraph, copy) => {
+  if (!paragraph) return;
+  delete paragraph.dataset.scrollWordsSplit;
+  paragraph.removeAttribute('aria-label');
+  paragraph.textContent = copy;
+};
+
 export default function AboutEnhancements() {
-  useEffect(() => {
+  useLayoutEffect(() => {
+    window.__aboutCopyReady = false;
+
+    const revealAboutPage = () => {
+      document.documentElement.removeAttribute('data-about-enhancing');
+    };
+    const notifyCopyReady = () => {
+      window.__aboutCopyReady = true;
+      window.dispatchEvent(new Event('about-copy-ready'));
+    };
     const firstSection = document.getElementById('1');
     const firstParagraph = firstSection?.querySelector('p');
-    if (firstParagraph) firstParagraph.textContent = aboutCopy;
+    applyParagraphCopy(firstParagraph, aboutCopy);
 
     const secondSection = document.getElementById('2');
     const secondParagraph = secondSection?.querySelector('p');
-    if (secondParagraph) secondParagraph.textContent = developmentCopy;
+    applyParagraphCopy(secondParagraph, developmentCopy);
 
     const thirdSection = document.querySelector('[data-framer-name="3"]');
     const thirdParagraph = thirdSection?.querySelector('p');
-    if (thirdParagraph) thirdParagraph.textContent = collaborationCopy;
+    applyParagraphCopy(thirdParagraph, collaborationCopy);
 
     const workSection = [...document.querySelectorAll('section')].find(
       (section) => section.dataset.framerName === 'Work Experiences',
@@ -105,8 +121,8 @@ export default function AboutEnhancements() {
           experienceContent.appendChild(
             createExperienceEntry(
               'student',
-              'B.E. Information Technology Student',
-              'Institute of Engineering & Technology, DAVV, Indore',
+              'B.E. Information Technology<br />Student',
+              'Institute of Engineering &amp;<br class="about-experience-entry__college-break" /> Technology, DAVV, Indore',
               '2020 - 2024',
             ),
           );
@@ -124,7 +140,13 @@ export default function AboutEnhancements() {
       document.querySelector('[data-framer-name="3"]'),
     ].filter(Boolean);
 
-    if (!progress || !progressFrame || contentSections.length !== 3) return undefined;
+    if (!progress || !progressFrame || contentSections.length !== 3) {
+      revealAboutPage();
+      notifyCopyReady();
+      return () => {
+        window.__aboutCopyReady = false;
+      };
+    }
 
     progress.classList.add('about-scroll-progress');
     progressFrame.classList.add('about-scroll-progress__frame');
@@ -150,10 +172,13 @@ export default function AboutEnhancements() {
     };
 
     updateProgress();
+    revealAboutPage();
+    notifyCopyReady();
     window.addEventListener('scroll', updateProgress, { passive: true });
     window.addEventListener('resize', updateProgress);
 
     return () => {
+      window.__aboutCopyReady = false;
       window.removeEventListener('scroll', updateProgress);
       window.removeEventListener('resize', updateProgress);
     };

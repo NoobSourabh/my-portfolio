@@ -1,6 +1,6 @@
 'use client';
 
-import { useLayoutEffect } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -13,6 +13,7 @@ const TEXT_SELECTORS = [
   '.framer-18we12h .framer-1pc8r1o h2',
   '.framer-U12Cq .framer-1tlnafg h1',
   '.framer-U12Cq main h2',
+  '.framer-U12Cq main p',
   '.framer-Jv3Vh .framer-xxdpy0 h1',
   '.framer-Jv3Vh .framer-xxdpy0 p',
 ];
@@ -21,6 +22,8 @@ const CARD_GROUPS = [
   { container: '.services-cta-wrapper .framer-1ev7gqr', cards: ':scope > div' },
   { container: '.backed-by-work-grid', cards: ':scope > .backed-card' },
 ];
+
+const ABOUT_BIO_PARAGRAPH_SELECTOR = '.framer-U12Cq .framer-2sbxu2 p.framer-styles-preset-myvcqd';
 
 function splitWords(element) {
   const text = element.textContent.trim();
@@ -41,47 +44,54 @@ function splitWords(element) {
 
 export default function ScrollAnimations() {
   const pathname = usePathname();
+  const lastPathRef = useRef(null);
+  const heroVisualsAnimatedHereRef = useRef(false);
 
   useLayoutEffect(() => {
+    const samePathReplay = lastPathRef.current === pathname;
+    lastPathRef.current = pathname;
+
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
 
     gsap.registerPlugin(ScrollTrigger);
-    const context = gsap.context(() => {
+    const isInitialHomeLoad = window.__portfolioHomeIntroEligible ??= window.location.pathname === '/';
+    const shouldAnimateHeroVisuals = pathname === '/' && isInitialHomeLoad && (
+      !window.__portfolioHeroVisualsPlayed || (heroVisualsAnimatedHereRef.current && samePathReplay)
+    );
+
+    if (shouldAnimateHeroVisuals) {
+      window.__portfolioHeroVisualsPlayed = true;
+      heroVisualsAnimatedHereRef.current = true;
+    }
+
+    const context = gsap.context((self) => {
       const visibleElements = (selector) => [...document.querySelectorAll(selector)]
         .filter((element) => element.getClientRects().length > 0);
-      const heroEyebrow = visibleElements('#hero .framer-1ns3x67 p');
-      const heroHeading = visibleElements('#hero .framer-14dkztq h1');
-      const heroDescription = visibleElements('#hero .framer-10y77co p');
-      const heroButtons = visibleElements('#hero .framer-1luurh7 a');
-
-      if (heroEyebrow.length || heroHeading.length || heroDescription.length || heroButtons.length) {
-        const heroTimeline = gsap.timeline({
-          scrollTrigger: {
-            trigger: '#hero .framer-mklr9n',
-            start: 'top 88%',
-            once: true,
-          },
-        });
-        const textFrom = { autoAlpha: 0, y: 24, filter: 'blur(10px)' };
-        const textTo = { autoAlpha: 1, y: 0, filter: 'blur(0px)', duration: 0.72, ease: 'power3.out' };
-
-        heroTimeline
-          .fromTo(heroEyebrow, textFrom, textTo)
-          .fromTo(heroHeading, textFrom, { ...textTo, duration: 0.82 }, '-=0.12')
-          .fromTo(heroDescription, textFrom, { ...textTo, duration: 0.72 }, '-=0.12')
-          .fromTo(
-            heroButtons,
-            { autoAlpha: 0, y: 16, scale: 0.96, filter: 'blur(8px)' },
-            { autoAlpha: 1, y: 0, scale: 1, filter: 'blur(0px)', duration: 0.62, stagger: 0.14, ease: 'power3.out' },
-            '-=0.08'
-          );
-      }
-
-      const uniqueText = new Set(TEXT_SELECTORS.flatMap((selector) => [...document.querySelectorAll(selector)]));
+      const uniqueText = new Set(
+        TEXT_SELECTORS.flatMap((selector) => [...document.querySelectorAll(selector)])
+          .filter((element) => element.getClientRects().length > 0)
+      );
       const wordGroups = [];
       const normalTargets = [];
 
+      const isAboutPage = pathname.startsWith('/about');
+      const animateWordGroup = (trigger, words) => {
+        gsap.fromTo(words,
+          { autoAlpha: 0, yPercent: 45, filter: 'blur(8px)' },
+          {
+            autoAlpha: 1,
+            yPercent: 0,
+            filter: 'blur(0px)',
+            duration: 0.48,
+            stagger: 0.035,
+            ease: 'power3.out',
+            scrollTrigger: { trigger, start: 'top 88%', once: true },
+          }
+        );
+      };
+
       uniqueText.forEach((element) => {
+        if (isAboutPage && element.closest('.framer-U12Cq')) return;
         if (element.closest('.framer-U12Cq')) {
           const words = splitWords(element);
           if (words.length) wordGroups.push({ trigger: element, words });
@@ -101,24 +111,45 @@ export default function ScrollAnimations() {
       });
 
       wordGroups.forEach(({ trigger, words }) => {
-        gsap.fromTo(words,
-          { autoAlpha: 0, yPercent: 45, filter: 'blur(8px)' },
-          {
-            autoAlpha: 1,
-            yPercent: 0,
-            filter: 'blur(0px)',
-            duration: 0.48,
-            stagger: 0.035,
-            ease: 'power3.out',
-            scrollTrigger: { trigger, start: 'top 88%', once: true },
-          }
-        );
+        animateWordGroup(trigger, words);
       });
+
+      if (isAboutPage) {
+        let aboutAnimationsReady = false;
+        const initAboutAnimations = () => {
+          if (aboutAnimationsReady) return;
+          aboutAnimationsReady = true;
+
+          const aboutText = new Set(
+            TEXT_SELECTORS.flatMap((selector) => [...document.querySelectorAll(selector)])
+              .filter((element) => element.closest('.framer-U12Cq') && element.getClientRects().length > 0)
+          );
+
+          aboutText.forEach((element) => {
+            if (element.matches(ABOUT_BIO_PARAGRAPH_SELECTOR)) {
+              delete element.dataset.scrollWordsSplit;
+              element.removeAttribute('aria-label');
+            }
+            const words = splitWords(element);
+            if (words.length) animateWordGroup(element, words);
+          });
+
+          requestAnimationFrame(() => ScrollTrigger.refresh());
+        };
+
+        window.addEventListener('about-copy-ready', initAboutAnimations);
+        if (window.__aboutCopyReady) initAboutAnimations();
+        else requestAnimationFrame(initAboutAnimations);
+
+        self.add(() => {
+          window.removeEventListener('about-copy-ready', initAboutAnimations);
+        });
+      }
 
       const heroVisualRow = document.querySelector('#hero .framer-1a1apuj');
       const adarshTestimonial = heroVisualRow?.querySelector('.framer-q9d11');
       const heroPortrait = heroVisualRow?.querySelector('.framer-1l0q9pj');
-      if (heroVisualRow && (adarshTestimonial || heroPortrait)) {
+      if (shouldAnimateHeroVisuals && heroVisualRow && (adarshTestimonial || heroPortrait)) {
         const visualTimeline = gsap.timeline({
           scrollTrigger: {
             trigger: heroVisualRow,
