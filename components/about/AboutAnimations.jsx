@@ -79,7 +79,7 @@ export default function AboutAnimations() {
             const section = page.querySelector(selector);
             if (!section) return;
 
-            const textElements = [...section.querySelectorAll(':scope h2, :scope p')]
+            const textElements = [...section.querySelectorAll('h2, p')]
               .filter((element) => element.getClientRects().length > 0);
             const words = textElements.flatMap((element) => {
               const split = splitWords(element);

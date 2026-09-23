@@ -1,0 +1,96 @@
+/* Navbar brand hover: reveal name on photo hover (Framer .hover class is not wired in static export) */
+.framer-0gSxu.framer-v-vramua.framer-gama31 {
+  width: 40px;
+  overflow: visible;
+  transition: width 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.framer-0gSxu.framer-v-vramua.framer-gama31 .framer-3azvt {
+  opacity: 0;
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  pointer-events: none;
+  transition:
+    opacity 0.28s ease 0.06s,
+    max-width 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.framer-0gSxu.framer-v-vramua.framer-gama31:hover,
+.framer-0gSxu.framer-v-vramua.framer-gama31:focus-visible,
+.framer-0gSxu.framer-v-vramua.framer-gama31.hover {
+  width: min-content;
+}
+
+.framer-0gSxu.framer-v-vramua.framer-gama31:hover .framer-3azvt,
+.framer-0gSxu.framer-v-vramua.framer-gama31:focus-visible .framer-3azvt,
+.framer-0gSxu.framer-v-vramua.framer-gama31.hover .framer-3azvt {
+  opacity: 1;
+  max-width: 220px;
+  pointer-events: auto;
+}
+
+/* Stop avatar/name from clipping during hover and intro animation */
+.framer-FkhBr[data-framer-name='Desktop'] .framer-y2n41y,
+.framer-FkhBr[data-framer-name='Desktop'] .framer-1qnmbe7,
+.framer-FkhBr[data-framer-name='Desktop'] .framer-306p1r-container,
+.framer-FkhBr[data-framer-name='Tablet'] .framer-y2n41y,
+.framer-FkhBr[data-framer-name='Tablet'] .framer-1qnmbe7,
+.framer-FkhBr[data-framer-name='Tablet'] .framer-306p1r-container {
+  overflow: visible;
+}
+
+.framer-0gSxu.framer-gama31 {
+  overflow: visible;
+}
+
+.framer-0gSxu .framer-dbhgb7 {
+  overflow: visible;
+  border-radius: 100px;
+}
+
+.framer-0gSxu .framer-dbhgb7 [data-framer-background-image-wrapper='true'] {
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+/* Mobile nav: always show Work / About / Contact (Framer phone-closed state clips them) */
+@media (max-width: 809.98px) {
+  .framer-1jk3wwm-container nav[data-framer-name='Phone Closed'],
+  .framer-1jk3wwm-container nav[data-framer-name='Phone Closed'].navbar-mobile-open {
+    height: auto !important;
+    overflow: visible !important;
+    padding-bottom: 24px !important;
+  }
+
+  .framer-1jk3wwm-container nav[data-framer-name='Phone Closed'] .framer-s7i71q {
+    display: none;
+  }
+
+  .framer-1jk3wwm-container nav[data-framer-name='Phone Closed'] .framer-18a3s1j {
+    display: flex;
+  }
+
+  .framer-1jk3wwm-container nav[data-framer-name='Phone Closed'] .framer-kpjn1v {
+    background-color: var(--token-c06ac48a-21a8-4582-b3d6-9f37581073a1, rgb(247, 247, 247)) !important;
+    border-radius: 24px !important;
+    padding: 12px !important;
+  }
+
+  .framer-1jk3wwm-container nav[data-framer-name='Phone Closed'] .framer-c8zt8c-container {
+    width: 100%;
+  }
+
+  .framer-1jk3wwm-container nav[data-framer-name='Phone Closed'] .framer-c8zt8c-container > a {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .framer-0gSxu.framer-v-vramua.framer-gama31,
+  .framer-0gSxu.framer-v-vramua.framer-gama31 .framer-3azvt {
+    transition-duration: 1ms;
+    transition-delay: 0ms;
+  }
+}
