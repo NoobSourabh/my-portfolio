@@ -1,0 +1,67 @@
+/*
+ * The exported Framer hero keeps its copy and visual row separate. Keep that
+ * structure intact for the smaller breakpoints, but compose the large-screen
+ * hero as a two-column layout with the video alongside the copy.
+ */
+@media (min-width: 1200px) {
+  .framer-pNPRd .framer-1p46al4 {
+    display: grid;
+    grid-template-columns: minmax(532px, 0.95fr) minmax(0, 1.05fr);
+    align-items: center;
+    gap: 48px;
+  }
+
+  .framer-pNPRd .framer-1g9zx9 {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+  }
+
+  .framer-pNPRd .framer-42n1mj {
+    display: none;
+  }
+
+  .framer-pNPRd .framer-1ws1c3f {
+    width: 100%;
+  }
+
+  .framer-pNPRd .framer-1a1apuj {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: center;
+    display: block;
+    width: 100%;
+  }
+
+  .framer-pNPRd .framer-138p8xp-container {
+    width: min(100%, 532px);
+    flex: none;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    margin: 0;
+    transform: translateX(-24px);
+  }
+
+  .framer-pNPRd .framer-q9d11 {
+    background-color: transparent !important;
+    height: auto !important;
+    aspect-ratio: 16 / 9;
+  }
+
+  .framer-pNPRd #hero-boomerang-video {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover !important;
+  }
+
+  .framer-pNPRd .framer-1l0q9pj {
+    display: none;
+  }
+}
+
+@media (max-width: 1199.98px) {
+  .framer-pNPRd .framer-138p8xp-container {
+    display: none;
+  }
+}

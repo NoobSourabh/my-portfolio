@@ -4,6 +4,8 @@
 @import './styles/framer-other.css';
 @import './styles/backed-by-work.css';
 @import './styles/about-orbit.css';
+@import './styles/about-enhancements.css';
+@import './styles/hero-layout.css';
 
 html,
 body {

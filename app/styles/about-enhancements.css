@@ -1,0 +1,131 @@
+.about-scroll-progress .about-scroll-progress__frame {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 64px !important;
+  overflow: visible !important;
+}
+
+.about-scroll-progress .about-scroll-progress__frame > div {
+  display: none !important;
+}
+
+.about-scroll-progress [data-about-current-step] {
+  display: block !important;
+  position: static !important;
+  width: max-content !important;
+  transform: none !important;
+  color: #111 !important;
+  font: 500 40px/1.1 "DM Sans", sans-serif !important;
+  letter-spacing: -0.02em !important;
+  white-space: nowrap !important;
+}
+
+.about-education {
+  width: 100%;
+  padding: 100px 40px;
+}
+
+.about-education__inner {
+  width: min(1200px, 100%);
+  margin: 0 auto;
+}
+
+.about-education__eyebrow {
+  margin: 0 0 24px;
+  color: #6c7179;
+  font: 400 16px/1.4 "DM Sans", sans-serif;
+}
+
+.about-education__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 24px;
+  padding: 24px 0;
+  border-top: 1px solid #ededed;
+  border-bottom: 1px solid #ededed;
+}
+
+.about-education__row h2,
+.about-education__row p {
+  margin: 0;
+}
+
+.about-education__row h2 {
+  color: #111;
+  font: 500 24px/1.1 "DM Sans", sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.about-education__row p {
+  color: #6c7179;
+  font: 400 16px/1.4 "DM Sans", sans-serif;
+}
+
+.about-education__period {
+  color: #111 !important;
+  white-space: nowrap;
+}
+
+.about-experience-entry {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 24px;
+  width: 100%;
+  padding: 24px 0;
+  border-top: 1px solid #ededed;
+}
+
+.about-experience-entry[data-about-experience="rsenl"] {
+  border-top: 0;
+}
+
+.about-experience-entry p {
+  margin: 0;
+}
+
+.about-experience-entry__role {
+  color: #111;
+  font: 500 24px/1.1 "DM Sans", sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.about-experience-entry__company {
+  color: #111;
+  font: 400 16px/1.4 "DM Sans", sans-serif;
+}
+
+.about-experience-entry__period {
+  color: #111;
+  font: 400 16px/1.4 "DM Sans", sans-serif;
+  white-space: nowrap;
+}
+
+@media (max-width: 809.98px) {
+  .about-education {
+    padding: 60px 20px;
+  }
+
+  .about-education__row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .about-education__row h2 {
+    font-size: 22px;
+  }
+
+  .about-experience-entry {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .about-experience-entry__role {
+    font-size: 22px;
+  }
+}

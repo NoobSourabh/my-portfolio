@@ -80,8 +80,12 @@ function GithubActivityCard() {
 function TestimonialCard() {
   return (
     <article className="backed-card testimonial-card">
-      <div className="backed-card__topline">
-        <div className="testimonial-card__mark" aria-hidden="true" />
+      <div className="testimonial-card__profile">
+        <img src="/images/adarsh-baghel.jpg" alt="Adarsh Baghel" />
+        <div>
+          <strong>Adarsh Baghel</strong>
+          <span>Founder at RSENL AI LABS</span>
+        </div>
       </div>
       <div className="backed-card__copy">
         <h3>Trusted by growing teams</h3>
@@ -89,10 +93,7 @@ function TestimonialCard() {
       </div>
       <div className="testimonial-stack">
         <blockquote className="testimonial-bubble testimonial-bubble--dark">
-          “Working with Sourabh was smooth from start to finish. He understood our goals...”
-        </blockquote>
-        <blockquote className="testimonial-bubble testimonial-bubble--light">
-          “Sourabh has a great eye for detail and a strong sense of structure. Our new...”
+          “Working with Sourabh was smooth from start to finish. He understood our goals quickly and delivered a frontend that feels clear, modern, and easy to manage.”
         </blockquote>
       </div>
     </article>

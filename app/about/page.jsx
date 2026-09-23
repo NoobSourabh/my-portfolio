@@ -1,4 +1,5 @@
 import AboutContent from '../../components/about/AboutContent';
+import AboutEnhancements from '../../components/about/AboutEnhancements';
 
 export const metadata = {
   title: 'About — Sourabh Chouhan - Frontend Developer',
@@ -6,5 +7,10 @@ export const metadata = {
 };
 
 export default function AboutPage() {
-  return <AboutContent />;
+  return (
+    <>
+      <AboutContent />
+      <AboutEnhancements />
+    </>
+  );
 }
