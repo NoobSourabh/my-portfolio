@@ -1,13 +1,31 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 export default function HeroSection() {
   const videoRef = useRef(null);
+  const videoSlotRef = useRef(null);
+  const [introPhase, setIntroPhase] = useState('fullscreen');
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
+
+    // Keep the opening shot full screen for two seconds, then fly it back into its slot.
+    const introTimer = window.setTimeout(() => {
+      const slot = videoSlotRef.current;
+      if (!slot) return;
+
+      const { top, left, width, height } = slot.getBoundingClientRect();
+      const wrapper = document.getElementById('hero-video-wrapper');
+      if (!wrapper) return;
+
+      wrapper.style.setProperty('--hero-video-top', `${top}px`);
+      wrapper.style.setProperty('--hero-video-left', `${left}px`);
+      wrapper.style.setProperty('--hero-video-width', `${width}px`);
+      wrapper.style.setProperty('--hero-video-height', `${height}px`);
+      setIntroPhase('returning');
+    }, 2000);
 
     // Timeline of hero-boomerang.mp4:
     // 0s  -> 10s: First fully playing (normal forward run)
@@ -27,6 +45,13 @@ export default function HeroSection() {
 
     animId = requestAnimationFrame(checkLoop);
 
+    const handleIntroReturn = (event) => {
+      if (event.propertyName !== 'width' || !wrapper?.classList.contains('hero-video-returning')) return;
+      setIntroPhase('settled');
+    };
+    const wrapper = document.getElementById('hero-video-wrapper');
+    wrapper?.addEventListener('transitionend', handleIntroReturn);
+
     const handleEnded = () => {
       video.currentTime = BOUNCE_START;
       video.play().catch(() => {});
@@ -44,25 +69,33 @@ export default function HeroSection() {
     });
 
     return () => {
+      window.clearTimeout(introTimer);
       cancelAnimationFrame(animId);
       video.removeEventListener('ended', handleEnded);
+      wrapper?.removeEventListener('transitionend', handleIntroReturn);
     };
   }, []);
 
   return (
-    <section className="framer-15w1qw8" data-framer-name="Hero" id="hero">
+    <section className={`framer-15w1qw8 hero-intro-${introPhase}`} data-framer-name="Hero" id="hero">
       <div className="framer-1p46al4" data-framer-name="Container">
         <div className="framer-1g9zx9" data-framer-name="Header">
-          <div id="hero-video-wrapper" className="hero-video-card">
-            <video
-              ref={videoRef}
-              id="hero-boomerang-video"
-              src="/images/hero-boomerang.mp4"
-              autoPlay
-              muted
-              playsInline
-              preload="auto"
-            />
+          <div id="hero-video-slot" ref={videoSlotRef}>
+            <div
+              id="hero-video-wrapper"
+              className={`hero-video-card hero-video-${introPhase}`}
+              aria-hidden={introPhase !== 'settled'}
+            >
+              <video
+                ref={videoRef}
+                id="hero-boomerang-video"
+                src="/images/hero-boomerang.mp4"
+                autoPlay
+                muted
+                playsInline
+                preload="auto"
+              />
+            </div>
           </div>
           <div className="framer-1ws1c3f" data-framer-name="Content Wrapper">
             <div className="framer-mklr9n" data-framer-appear-id="mklr9n" data-framer-name="Text Wrapper" style={{ opacity: "1", transform: "none" }}>

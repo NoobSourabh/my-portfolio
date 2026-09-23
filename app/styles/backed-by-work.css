@@ -204,12 +204,14 @@
 .github-activity__cell.level-2 {
   background: #8acb63;
   box-shadow: 0 0 8px rgb(138 203 99 / 58%), 0 0 16px rgb(138 203 99 / 20%);
+  will-change: opacity;
   animation: github-cell-glow 2.8s ease-in-out infinite alternate;
 }
 
 .github-activity__cell.level-3 {
   background: #d2ff83;
   box-shadow: 0 0 10px rgb(189 238 99 / 90%), 0 0 22px rgb(189 238 99 / 42%);
+  will-change: opacity;
   animation: github-cell-glow 1.9s ease-in-out infinite alternate;
 }
 
@@ -224,8 +226,8 @@
 }
 
 @keyframes github-cell-glow {
-  from { filter: brightness(0.9); }
-  to { filter: brightness(1.25); }
+  from { opacity: 0.76; }
+  to { opacity: 1; }
 }
 
 .testimonial-card__mark {
