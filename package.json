@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "deploy:gh-pages": "bash scripts/deploy-github-pages.sh"
   },
   "dependencies": {
     "gsap": "^3.12.7",
