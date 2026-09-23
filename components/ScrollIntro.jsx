@@ -32,10 +32,18 @@ export default function ScrollIntro() {
     const firstWords = section.querySelectorAll('[data-intro-line="plain"] .intro-word')
     const highlightedWords = section.querySelectorAll('[data-intro-line="highlight"] .intro-word')
     const highlightLines = section.querySelectorAll('.highlight-line')
+    const cta = section.closest('.about-orbit__content')?.querySelector('.about-orbit__cta')
+
+    const revealCta = () => {
+      if (!cta) return
+      cta.classList.add('is-visible')
+      gsap.set(cta, { autoAlpha: 1, y: 0 })
+    }
 
     if (!shouldAnimate) {
       gsap.set([...firstWords, ...highlightedWords], { autoAlpha: 1, yPercent: 0 })
       gsap.set(highlightLines, { '--highlight-progress': '100%' })
+      revealCta()
       return undefined
     }
 
@@ -46,6 +54,7 @@ export default function ScrollIntro() {
       section.dataset.revealActive = 'true'
       gsap.set([...firstWords, ...highlightedWords], { autoAlpha: 0, yPercent: 35 })
       gsap.set(highlightLines, { '--highlight-progress': '0%' })
+      if (cta) gsap.set(cta, { autoAlpha: 0, y: 16 })
 
       const timeline = gsap.timeline({
         scrollTrigger: {
@@ -75,6 +84,16 @@ export default function ScrollIntro() {
         ease: 'none',
         stagger: 0.85,
       })
+
+      if (cta) {
+        timeline.to(cta, {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.52,
+          ease: 'power3.out',
+          onStart: () => cta.classList.add('is-visible'),
+        })
+      }
     }, section)
 
     return () => context.revert()

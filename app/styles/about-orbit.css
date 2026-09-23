@@ -115,7 +115,7 @@
   will-change: background-size;
 }
 
-.about-orbit__content a {
+.about-orbit__content a.about-orbit__cta {
   display: inline-flex;
   min-height: 48px;
   align-items: center;
@@ -128,9 +128,16 @@
   background: #fff;
   font: 500 15px/1 "DM Sans", sans-serif;
   transition: background-color 180ms ease, transform 180ms ease;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
 }
 
-.about-orbit__content a:hover {
+.about-orbit__content a.about-orbit__cta.is-visible {
+  pointer-events: auto;
+}
+
+.about-orbit__content a.about-orbit__cta:hover {
   background: #f7f7f7;
   transform: translateY(-2px);
 }
@@ -198,5 +205,11 @@
 
   .scroll-intro .highlight-line {
     --highlight-progress: 100%;
+  }
+
+  .about-orbit__content a.about-orbit__cta {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
   }
 }
