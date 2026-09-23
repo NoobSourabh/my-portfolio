@@ -8,7 +8,7 @@ const prefixRootPathsScript = `
 
   function prefixRootPaths(root) {
     var scope = root || document;
-    scope.querySelectorAll('a[href^="/"]:not([href^="//"]), img[src^="/"], link[href^="/"]:not([href^="//"])').forEach(function (el) {
+    scope.querySelectorAll('[href^="/"]:not([href^="//"]), [src^="/"]:not([src^="//"])').forEach(function (el) {
       var attr = el.hasAttribute('href') ? 'href' : 'src';
       var value = el.getAttribute(attr);
       if (!value || value.indexOf(base) === 0) return;

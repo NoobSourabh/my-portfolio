@@ -2,7 +2,7 @@
 
 import { useRef, useLayoutEffect, useState } from 'react';
 import { gsap } from 'gsap';
-import { getBrowserAppPathname } from '../../lib/site-paths';
+import { getBrowserAppPathname, withBasePath } from '../../lib/site-paths';
 
 const MOBILE_MAX_WIDTH = 809.98;
 
@@ -185,7 +185,7 @@ export default function HeroSection() {
               <video
                 ref={videoRef}
                 id="hero-boomerang-video"
-                src="/images/hero-boomerang.mp4"
+                src={withBasePath('/images/hero-boomerang.mp4')}
                 autoPlay
                 muted
                 playsInline
