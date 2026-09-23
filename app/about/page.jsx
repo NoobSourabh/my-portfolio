@@ -1,4 +1,5 @@
 import AboutContent from '../../components/about/AboutContent';
+import AboutAnimations from '../../components/about/AboutAnimations';
 import AboutEnhancements from '../../components/about/AboutEnhancements';
 
 export const metadata = {
@@ -17,6 +18,7 @@ export default function AboutPage() {
       <div data-about-page>
         <AboutContent />
         <AboutEnhancements />
+        <AboutAnimations />
       </div>
     </>
   );

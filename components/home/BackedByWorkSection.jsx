@@ -1,9 +1,5 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
 const summitImages = [
   '/images/india-ai-summit-stage.png',
   '/images/india-ai-summit-exhibition.png',
@@ -116,72 +112,8 @@ function TestimonialCard() {
 }
 
 export default function BackedByWorkSection() {
-  const sectionRef = useRef(null);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      return;
-    }
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    const ctx = gsap.context(() => {
-      const headline = section.querySelector('.backed-by-work-section__headline');
-      const cards = section.querySelectorAll('.backed-card');
-
-      if (headline) {
-        gsap.fromTo(
-          headline.children,
-          { autoAlpha: 0, y: 35 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.8,
-            stagger: 0.15,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: headline,
-              start: 'top 85%',
-              toggleActions: 'play none none reverse',
-            },
-          }
-        );
-      }
-
-      if (cards.length > 0) {
-        gsap.fromTo(
-          cards,
-          { autoAlpha: 0, y: 55, scale: 0.96 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.85,
-            stagger: 0.16,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: section.querySelector('.backed-by-work-grid') || section,
-              start: 'top 80%',
-              toggleActions: 'play none none reverse',
-            },
-          }
-        );
-      }
-    }, sectionRef);
-
-    const timer = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 200);
-
-    return () => {
-      clearTimeout(timer);
-      ctx.revert();
-    };
-  }, []);
-
   return (
-    <section ref={sectionRef} className="backed-by-work-section" aria-labelledby="backed-by-work-title">
+    <section className="backed-by-work-section" aria-labelledby="backed-by-work-title">
       <div className="backed-by-work-section__inner">
         <div className="backed-by-work-section__headline">
           <h2 id="backed-by-work-title">Backed by real work.</h2>

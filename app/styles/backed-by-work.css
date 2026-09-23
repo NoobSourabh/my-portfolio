@@ -49,6 +49,7 @@
   border-radius: 40px;
   background: #f7f7f7;
   padding: 0 0 28px;
+  contain: layout style paint;
 }
 
 .backed-card__topline {

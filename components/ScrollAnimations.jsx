@@ -11,9 +11,6 @@ const TEXT_SELECTORS = [
   '.backed-by-work-section__headline h2',
   '.backed-by-work-section__headline p',
   '.framer-18we12h .framer-1pc8r1o h2',
-  '.framer-U12Cq .framer-1tlnafg h1',
-  '.framer-U12Cq main h2',
-  '.framer-U12Cq main p',
   '.framer-Jv3Vh .framer-xxdpy0 h1',
   '.framer-Jv3Vh .framer-xxdpy0 p',
 ];
@@ -22,25 +19,6 @@ const CARD_GROUPS = [
   { container: '.services-cta-wrapper .framer-1ev7gqr', cards: ':scope > div' },
   { container: '.backed-by-work-grid', cards: ':scope > .backed-card' },
 ];
-
-const ABOUT_BIO_PARAGRAPH_SELECTOR = '.framer-U12Cq .framer-2sbxu2 p.framer-styles-preset-myvcqd';
-
-function splitWords(element) {
-  const text = element.textContent.trim();
-  if (!text || element.dataset.scrollWordsSplit) return [];
-
-  element.dataset.scrollWordsSplit = 'true';
-  element.setAttribute('aria-label', text);
-  element.replaceChildren(...text.split(/(\s+)/).filter(Boolean).map((part) => {
-    if (/^\s+$/.test(part)) return document.createTextNode(part);
-    const word = document.createElement('span');
-    word.className = 'gsap-scroll-word';
-    word.textContent = part;
-    word.setAttribute('aria-hidden', 'true');
-    return word;
-  }));
-  return [...element.querySelectorAll('.gsap-scroll-word')];
-}
 
 export default function ScrollAnimations() {
   const pathname = usePathname();
@@ -71,31 +49,11 @@ export default function ScrollAnimations() {
         TEXT_SELECTORS.flatMap((selector) => [...document.querySelectorAll(selector)])
           .filter((element) => element.getClientRects().length > 0)
       );
-      const wordGroups = [];
       const normalTargets = [];
 
-      const isAboutPage = pathname.startsWith('/about');
-      const animateWordGroup = (trigger, words) => {
-        gsap.fromTo(words,
-          { autoAlpha: 0, yPercent: 45, filter: 'blur(8px)' },
-          {
-            autoAlpha: 1,
-            yPercent: 0,
-            filter: 'blur(0px)',
-            duration: 0.48,
-            stagger: 0.035,
-            ease: 'power3.out',
-            scrollTrigger: { trigger, start: 'top 88%', once: true },
-          }
-        );
-      };
-
       uniqueText.forEach((element) => {
-        if (isAboutPage && element.closest('.framer-U12Cq')) return;
-        if (element.closest('.framer-U12Cq')) {
-          const words = splitWords(element);
-          if (words.length) wordGroups.push({ trigger: element, words });
-        } else normalTargets.push(element);
+        if (element.closest('.framer-U12Cq')) return;
+        normalTargets.push(element);
       });
 
       gsap.set(normalTargets, { autoAlpha: 0, y: 24, filter: 'blur(9px)' });
@@ -109,42 +67,6 @@ export default function ScrollAnimations() {
           scrollTrigger: { trigger: element, start: 'top 88%', once: true },
         });
       });
-
-      wordGroups.forEach(({ trigger, words }) => {
-        animateWordGroup(trigger, words);
-      });
-
-      if (isAboutPage) {
-        let aboutAnimationsReady = false;
-        const initAboutAnimations = () => {
-          if (aboutAnimationsReady) return;
-          aboutAnimationsReady = true;
-
-          const aboutText = new Set(
-            TEXT_SELECTORS.flatMap((selector) => [...document.querySelectorAll(selector)])
-              .filter((element) => element.closest('.framer-U12Cq') && element.getClientRects().length > 0)
-          );
-
-          aboutText.forEach((element) => {
-            if (element.matches(ABOUT_BIO_PARAGRAPH_SELECTOR)) {
-              delete element.dataset.scrollWordsSplit;
-              element.removeAttribute('aria-label');
-            }
-            const words = splitWords(element);
-            if (words.length) animateWordGroup(element, words);
-          });
-
-          requestAnimationFrame(() => ScrollTrigger.refresh());
-        };
-
-        window.addEventListener('about-copy-ready', initAboutAnimations);
-        if (window.__aboutCopyReady) initAboutAnimations();
-        else requestAnimationFrame(initAboutAnimations);
-
-        self.add(() => {
-          window.removeEventListener('about-copy-ready', initAboutAnimations);
-        });
-      }
 
       const heroVisualRow = document.querySelector('#hero .framer-1a1apuj');
       const adarshTestimonial = heroVisualRow?.querySelector('.framer-q9d11');
