@@ -245,7 +245,7 @@ export default function HeroSection() {
                     decoding="async"
                     width="1232"
                     height="928"
-                    src="https://avatars.githubusercontent.com/u/135740458?v=4"
+                    src="/images/PORTRAIT.png"
                     alt="Sourabh Chouhan, Frontend Developer"
                     style={{
                       display: "block",

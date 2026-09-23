@@ -50,12 +50,14 @@ export default function ScrollAnimations() {
     gsap.registerPlugin(ScrollTrigger);
     const context = gsap.context(() => {
       const uniqueText = new Set(TEXT_SELECTORS.flatMap((selector) => [...document.querySelectorAll(selector)]));
-      const wordTargets = [];
+      const wordGroups = [];
       const normalTargets = [];
 
       uniqueText.forEach((element) => {
-        if (element.closest('.framer-U12Cq')) wordTargets.push(...splitWords(element));
-        else normalTargets.push(element);
+        if (element.closest('.framer-U12Cq')) {
+          const words = splitWords(element);
+          if (words.length) wordGroups.push({ trigger: element, words });
+        } else normalTargets.push(element);
       });
 
       gsap.set(normalTargets, { autoAlpha: 0, y: 24, filter: 'blur(9px)' });
@@ -70,24 +72,20 @@ export default function ScrollAnimations() {
         });
       });
 
-      if (wordTargets.length) {
-        gsap.set(wordTargets, { autoAlpha: 0, yPercent: 45, filter: 'blur(8px)' });
-        wordTargets.forEach((word) => {
-          gsap.to(word, {
+      wordGroups.forEach(({ trigger, words }) => {
+        gsap.fromTo(words,
+          { autoAlpha: 0, yPercent: 45, filter: 'blur(8px)' },
+          {
             autoAlpha: 1,
             yPercent: 0,
             filter: 'blur(0px)',
-            duration: 0.5,
+            duration: 0.48,
+            stagger: 0.035,
             ease: 'power3.out',
-            scrollTrigger: {
-              trigger: word.closest('p, h1, h2') || word,
-              start: 'top 88%',
-              once: true,
-              onEnter: () => gsap.to(word, { autoAlpha: 1, yPercent: 0, filter: 'blur(0px)', duration: 0.5, ease: 'power3.out' }),
-            },
-          });
-        });
-      }
+            scrollTrigger: { trigger, start: 'top 88%', once: true },
+          }
+        );
+      });
 
       CARD_GROUPS.forEach(({ selector, axis }) => {
         document.querySelectorAll(selector).forEach((card, index) => {
