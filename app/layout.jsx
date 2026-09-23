@@ -9,6 +9,7 @@ import ScrollToTop from '../components/ScrollToTop';
 const siteTitle = 'Sourabh Chouhan — Frontend Developer';
 const siteDescription =
   'Sourabh Chouhan - Frontend Developer portfolio showcasing responsive web apps, landing pages, and AI projects.';
+const faviconImage = '/images/mascot%20Background%20Removed.png';
 const shareImage = '/images/mascot.png';
 
 function getMetadataBase() {
@@ -23,9 +24,9 @@ export const metadata = {
   title: siteTitle,
   description: siteDescription,
   icons: {
-    icon: [{ url: shareImage, type: 'image/png' }],
-    shortcut: shareImage,
-    apple: shareImage,
+    icon: [{ url: faviconImage, type: 'image/png' }],
+    shortcut: faviconImage,
+    apple: faviconImage,
   },
   manifest: '/site.webmanifest',
   appleWebApp: {
