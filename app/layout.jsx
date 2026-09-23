@@ -4,6 +4,7 @@ import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import SvgTemplates from '../components/SvgTemplates';
 import ScrollAnimations from '../components/ScrollAnimations';
+import ScrollToTop from '../components/ScrollToTop';
 
 export const metadata = {
   title: 'Sourabh Chouhan — Frontend Developer',
@@ -24,6 +25,7 @@ export default function RootLayout({ children }) {
             <Footer />
           </div>
         </div>
+        <ScrollToTop />
         <ScrollAnimations />
         <SvgTemplates />
         <Script
