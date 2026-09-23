@@ -6,11 +6,49 @@ import SvgTemplates from '../components/SvgTemplates';
 import ScrollAnimations from '../components/ScrollAnimations';
 import ScrollToTop from '../components/ScrollToTop';
 
+const siteTitle = 'Sourabh Chouhan — Frontend Developer';
+const siteDescription =
+  'Sourabh Chouhan - Frontend Developer portfolio showcasing responsive web apps, landing pages, and AI projects.';
+const shareImage = '/images/mascot.png';
+
+function getMetadataBase() {
+  const url =
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
+  return new URL(url);
+}
+
 export const metadata = {
-  title: 'Sourabh Chouhan — Frontend Developer',
-  description: 'Sourabh Chouhan - Frontend Developer portfolio showcasing responsive web apps, landing pages, and AI projects.',
+  metadataBase: getMetadataBase(),
+  title: siteTitle,
+  description: siteDescription,
   icons: {
-    icon: '/favicon.png',
+    icon: [{ url: shareImage, type: 'image/png' }],
+    shortcut: shareImage,
+    apple: shareImage,
+  },
+  manifest: '/site.webmanifest',
+  appleWebApp: {
+    title: 'Sourabh Chouhan',
+  },
+  openGraph: {
+    title: siteTitle,
+    description: siteDescription,
+    type: 'website',
+    images: [
+      {
+        url: shareImage,
+        width: 1254,
+        height: 1254,
+        alt: 'Sourabh Chouhan portfolio mascot',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary',
+    title: siteTitle,
+    description: siteDescription,
+    images: [shareImage],
   },
 };
 
