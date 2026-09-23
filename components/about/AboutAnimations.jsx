@@ -75,7 +75,7 @@ export default function AboutAnimations() {
             );
           });
 
-          ['#1', '#2', '[data-framer-name="3"]'].forEach((selector) => {
+          ['[id="1"]', '[id="2"]', '[data-framer-name="3"]'].forEach((selector) => {
             const section = page.querySelector(selector);
             if (!section) return;
 

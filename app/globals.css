@@ -35,6 +35,14 @@ a {
   min-width: 0;
 }
 
+@media (max-width: 1199.98px) {
+  .services-cta-wrapper .framer-1rs0gtg-container,
+  .services-cta-wrapper .framer-1tacka1-container,
+  .services-cta-wrapper .framer-12vmf6a-container {
+    display: none !important;
+  }
+}
+
 /* Featured Projects section heading width fix: prevents cramped single-word line breaks */
 @media (min-width: 810px) {
   .framer-pNPRd .framer-m011k3 {
