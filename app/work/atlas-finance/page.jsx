@@ -1,7 +1,7 @@
-import TemplatePage from '../../../components/TemplatePage'
+import AtlasFinanceContent from '../../../components/work/AtlasFinanceContent';
 
-export const metadata = { title: 'Work - Atlas Finance' }
+export const metadata = { title: 'Sprout — Sourabh Chouhan - Frontend Developer' };
 
 export default function AtlasFinancePage() {
-  return <TemplatePage file="work--atlas-finance.html" />
+  return <AtlasFinanceContent />;
 }

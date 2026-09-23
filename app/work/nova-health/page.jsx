@@ -1,7 +1,7 @@
-import TemplatePage from '../../../components/TemplatePage'
+import NovaHealthContent from '../../../components/work/NovaHealthContent';
 
-export const metadata = { title: 'Work - Nova Health' }
+export const metadata = { title: 'Banana Shake — Sourabh Chouhan - Frontend Developer' };
 
 export default function NovaHealthPage() {
-  return <TemplatePage file="work--nova-health.html" />
+  return <NovaHealthContent />;
 }

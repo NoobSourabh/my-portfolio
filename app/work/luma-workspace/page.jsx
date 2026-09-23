@@ -1,7 +1,7 @@
-import TemplatePage from '../../../components/TemplatePage'
+import LumaWorkspaceContent from '../../../components/work/LumaWorkspaceContent';
 
-export const metadata = { title: 'Work - AI Films' }
+export const metadata = { title: 'AI Films — Sourabh Chouhan - Frontend Developer' };
 
 export default function LumaWorkspacePage() {
-  return <TemplatePage file="work--luma-workspace.html" />
+  return <LumaWorkspaceContent />;
 }

@@ -1,7 +1,7 @@
-import TemplatePage from '../../../components/TemplatePage'
+import BrightlyStudioContent from '../../../components/work/BrightlyStudioContent';
 
-export const metadata = { title: 'Work - Brightly Studio' }
+export const metadata = { title: 'Moji — Sourabh Chouhan - Frontend Developer' };
 
 export default function BrightlyStudioPage() {
-  return <TemplatePage file="work--brightly-studio.html" />
+  return <BrightlyStudioContent />;
 }
