@@ -94,25 +94,25 @@
 }
 
 .scroll-intro .statement-highlight {
-  position: relative;
-  isolation: isolate;
   color: #111;
-}
-
-.scroll-intro .highlight-sweep {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  display: block;
-  border-radius: 0.25em;
-  background: #bdee63;
-  clip-path: inset(0 100% 0 0 round 0.25em);
-  will-change: clip-path;
 }
 
 .scroll-intro .highlight-copy {
   position: relative;
-  z-index: 1;
+}
+
+.scroll-intro .highlight-line {
+  --highlight-progress: 0%;
+  display: inline;
+  background-image: linear-gradient(#bdee63, #bdee63);
+  background-position: 0 50%;
+  background-repeat: no-repeat;
+  background-size: var(--highlight-progress) 100%;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  padding: 0 0.08em;
+  margin: 0 -0.08em;
+  will-change: background-size;
 }
 
 .about-orbit__content a {
@@ -189,5 +189,14 @@
   .about-orbit__card {
     animation: none;
     transform: translate(-50%, -50%) rotate(calc(var(--orbit-angle) * -1));
+  }
+
+  .scroll-intro .intro-word {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .scroll-intro .highlight-line {
+    --highlight-progress: 100%;
   }
 }

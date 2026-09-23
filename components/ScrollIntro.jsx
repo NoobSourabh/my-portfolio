@@ -5,7 +5,10 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 const intro = 'I build modern frontend experiences that are easy to use, fast to load, and simple to maintain.'
-const highlighted = 'The goal is simple: turn ideas into clear, accessible interfaces that feel great on every screen.'
+const highlightedLines = [
+  'The goal is simple: turn ideas into clear, accessible interfaces that',
+  'feel great on every screen.',
+]
 
 function Words({ children }) {
   return children.split(/(\s+)/).map((part, index) => (
@@ -26,11 +29,11 @@ export default function ScrollIntro() {
     const context = gsap.context(() => {
       const firstWords = section.querySelectorAll('[data-intro-line="plain"] .intro-word')
       const highlightedWords = section.querySelectorAll('[data-intro-line="highlight"] .intro-word')
-      const highlightSweep = section.querySelector('.highlight-sweep')
+      const highlightLines = section.querySelectorAll('.highlight-line')
 
       section.dataset.revealActive = 'true'
       gsap.set([...firstWords, ...highlightedWords], { autoAlpha: 0, yPercent: 35 })
-      gsap.set(highlightSweep, { clipPath: 'inset(0 100% 0 0 round 0.25em)' })
+      gsap.set(highlightLines, { '--highlight-progress': '0%' })
 
       const timeline = gsap.timeline({
         scrollTrigger: {
@@ -47,18 +50,19 @@ export default function ScrollIntro() {
         ease: 'power2.out',
         stagger: 0.035,
       })
-      timeline.to(highlightSweep, {
-        clipPath: 'inset(0 0% 0 0 round 0.25em)',
-        duration: Math.max(1.35, highlightedWords.length * 0.055),
-        ease: 'none',
-      }, '>-0.08')
       timeline.to(highlightedWords, {
         autoAlpha: 1,
         yPercent: 0,
         duration: 0.38,
         ease: 'power2.out',
         stagger: 0.055,
-      }, '<')
+      })
+      timeline.to(highlightLines, {
+        '--highlight-progress': '100%',
+        duration: 0.85,
+        ease: 'none',
+        stagger: 0.85,
+      })
     }, section)
 
     return () => context.revert()
@@ -68,8 +72,14 @@ export default function ScrollIntro() {
     <div className="scroll-intro" ref={sectionRef}>
       <p className="statement" data-intro-line="plain"><Words>{intro}</Words></p>
       <p className="statement statement-highlight" data-intro-line="highlight">
-        <span className="highlight-sweep" aria-hidden="true" />
-        <span className="highlight-copy"><Words>{highlighted}</Words></span>
+        <span className="highlight-copy">
+          {highlightedLines.map((line, index) => (
+            <span key={line}>
+              <span className="highlight-line"><Words>{line}</Words></span>
+              {index < highlightedLines.length - 1 && <br aria-hidden="true" />}
+            </span>
+          ))}
+        </span>
       </p>
     </div>
   )

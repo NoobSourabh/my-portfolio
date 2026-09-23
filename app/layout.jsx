@@ -2,6 +2,7 @@ import './globals.css';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import SvgTemplates from '../components/SvgTemplates';
+import ScrollAnimations from '../components/ScrollAnimations';
 
 export const metadata = {
   title: 'Sourabh Chouhan — Frontend Developer',
@@ -22,6 +23,7 @@ export default function RootLayout({ children }) {
             <Footer />
           </div>
         </div>
+        <ScrollAnimations />
         <SvgTemplates />
       </body>
     </html>

@@ -4,7 +4,7 @@
 }
 
 .backed-by-work-section__inner {
-  width: min(1200px, 100%);
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -177,9 +177,9 @@
   width: 10px;
   height: 10px;
   display: block;
-  border-radius: 50%;
+  border-radius: 2px;
   background: #bdee63;
-  box-shadow: 0 0 14px rgb(189 238 99 / 70%);
+  box-shadow: 0 0 10px rgb(189 238 99 / 90%), 0 0 22px rgb(189 238 99 / 46%);
 }
 
 .github-activity__grid {
@@ -192,13 +192,41 @@
 .github-activity__cell {
   aspect-ratio: 1;
   display: block;
-  border-radius: 4px;
+  border-radius: 2px;
   background: #1d2b3b;
 }
 
-.github-activity__cell.level-1 { background: #295c51; }
-.github-activity__cell.level-2 { background: #5c8d55; }
-.github-activity__cell.level-3 { background: #bdee63; }
+.github-activity__cell.level-1 {
+  background: #3f8069;
+  box-shadow: 0 0 5px rgb(72 180 125 / 28%);
+}
+
+.github-activity__cell.level-2 {
+  background: #8acb63;
+  box-shadow: 0 0 8px rgb(138 203 99 / 58%), 0 0 16px rgb(138 203 99 / 20%);
+  animation: github-cell-glow 2.8s ease-in-out infinite alternate;
+}
+
+.github-activity__cell.level-3 {
+  background: #d2ff83;
+  box-shadow: 0 0 10px rgb(189 238 99 / 90%), 0 0 22px rgb(189 238 99 / 42%);
+  animation: github-cell-glow 1.9s ease-in-out infinite alternate;
+}
+
+.github-activity__cell.level-2:nth-child(3n),
+.github-activity__cell.level-3:nth-child(3n) {
+  animation-delay: 650ms;
+}
+
+.github-activity__cell.level-2:nth-child(4n),
+.github-activity__cell.level-3:nth-child(4n) {
+  animation-delay: 1.2s;
+}
+
+@keyframes github-cell-glow {
+  from { filter: brightness(0.9); }
+  to { filter: brightness(1.25); }
+}
 
 .testimonial-card__mark {
   width: 48px;
@@ -222,11 +250,7 @@
 }
 
 .testimonial-bubble {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  max-height: 82px;
-  overflow: hidden;
+  display: block;
   margin: 0;
   padding: 16px 20px;
   border-radius: 18px;
@@ -242,6 +266,14 @@
   box-shadow: 10px 20px 40px rgb(0 0 0 / 18%);
 }
 
+.testimonial-bubble--light {
+  align-self: flex-end;
+  max-width: 92%;
+  color: #111;
+  background: #fff;
+  box-shadow: 0 12px 24px rgb(17 17 17 / 8%);
+}
+
 @media (max-width: 1199.98px) and (min-width: 810px) {
   .backed-by-work-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -255,8 +287,8 @@
 
   .backed-card:last-child {
     grid-column: 1 / -1;
-    max-width: calc(50% - 10px);
-    justify-self: center;
+    max-width: none;
+    width: 100%;
   }
 }
 
@@ -329,6 +361,11 @@
 
 @media (prefers-reduced-motion: reduce) {
   .summit-gallery__track {
+    animation: none;
+  }
+
+  .github-activity__cell.level-2,
+  .github-activity__cell.level-3 {
     animation: none;
   }
 }

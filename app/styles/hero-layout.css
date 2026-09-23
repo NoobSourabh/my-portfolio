@@ -1,21 +1,47 @@
 /*
  * Hero Video Layout & Component Styling
- * Clean, responsive video card with hardware-accelerated border-radius clipping.
+ * Restores the original 2-row hero layout:
+ * - Row 1 (Header: .framer-1g9zx9): Hero video wrapper on left, headline copy on right.
+ * - Row 2 (Visual: .framer-1a1apuj): Testimonial card on left, visual photo card on right.
  */
 
-.framer-1l0q9pj.hero-video-card {
-  position: relative;
+.framer-1g9zx9 .framer-42n1mj {
+  display: none !important;
+}
+
+.framer-1g9zx9 {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  width: 100% !important;
+}
+
+.framer-1g9zx9 .framer-1ws1c3f {
+  flex-shrink: 1 !important;
+  max-width: 62% !important;
+}
+
+#hero-video-wrapper {
+  flex: none;
+  width: 350px;
+  height: 258px;
+  border-radius: 40px;
   overflow: hidden;
+  position: relative;
+  align-self: center;
+  flex-shrink: 0;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.12), 0 2px 12px rgba(0, 0, 0, 0.06);
+  margin-right: 80px;
   isolation: isolate;
-  background-color: var(--token-c06ac48a-21a8-4582-b3d6-9f37581073a1, rgb(247, 247, 247));
-  border: 1px solid var(--token-8ac823af-7d80-4133-952a-528a09c81339, rgb(237, 237, 237));
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
   -webkit-mask-image: -webkit-radial-gradient(white, black);
   mask-image: radial-gradient(white, black);
   clip-path: inset(0 round 40px);
+  background-color: var(--token-c06ac48a-21a8-4582-b3d6-9f37581073a1, rgb(247, 247, 247));
+  border: 1px solid var(--token-8ac823af-7d80-4133-952a-528a09c81339, rgb(237, 237, 237));
 }
 
-.framer-1l0q9pj.hero-video-card video,
+#hero-video-wrapper video,
 #hero-boomerang-video {
   display: block;
   width: 100%;
@@ -28,12 +54,52 @@
   transform: translateZ(0);
 }
 
-/* Mobile small screens (< 810px) */
+/* Tablet screens (810px to 1199px) */
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .framer-1g9zx9 {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+  }
+  #hero-video-wrapper {
+    width: 280px;
+    height: 205px;
+    margin-right: 40px;
+    border-radius: 32px;
+    clip-path: inset(0 round 32px);
+  }
+  #hero-video-wrapper video,
+  #hero-boomerang-video {
+    border-radius: 32px;
+    clip-path: inset(0 round 32px);
+  }
+}
+
+/* Mobile screens (< 810px) */
 @media (max-width: 809.98px) {
-  .framer-1l0q9pj.hero-video-card,
-  .framer-1l0q9pj.hero-video-card video,
+  .framer-1g9zx9 {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+  .framer-1g9zx9 .framer-1ws1c3f {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: none !important;
+  }
+  #hero-video-wrapper {
+    width: 100%;
+    height: 200px;
+    margin-right: 0;
+    margin-bottom: 24px;
+    border-radius: 24px;
+    clip-path: inset(0 round 24px);
+  }
+  #hero-video-wrapper video,
   #hero-boomerang-video {
     border-radius: 24px;
     clip-path: inset(0 round 24px);
   }
 }
+

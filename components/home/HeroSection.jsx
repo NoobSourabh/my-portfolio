@@ -1,12 +1,68 @@
+'use client';
+
+import { useRef, useEffect } from 'react';
+
 export default function HeroSection() {
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Timeline of hero-boomerang.mp4:
+    // 0s  -> 10s: First fully playing (normal forward run)
+    // 10s -> 15s: Reversed segment (10s back to 5s)
+    // At ~14.95s, loop back to 5.0s so it plays 5s -> 10s forward, then 10s -> 15s backward.
+    const BOUNCE_START = 5.0;
+    const BOUNCE_END = 14.95;
+
+    let animId;
+    const checkLoop = () => {
+      if (video.currentTime >= BOUNCE_END) {
+        video.currentTime = BOUNCE_START;
+        video.play().catch(() => {});
+      }
+      animId = requestAnimationFrame(checkLoop);
+    };
+
+    animId = requestAnimationFrame(checkLoop);
+
+    const handleEnded = () => {
+      video.currentTime = BOUNCE_START;
+      video.play().catch(() => {});
+    };
+
+    video.addEventListener('ended', handleEnded);
+
+    // Ensure playback starts
+    video.play().catch(() => {
+      const handleUserInteraction = () => {
+        video.play().catch(() => {});
+      };
+      window.addEventListener('click', handleUserInteraction, { once: true });
+      window.addEventListener('touchstart', handleUserInteraction, { once: true });
+    });
+
+    return () => {
+      cancelAnimationFrame(animId);
+      video.removeEventListener('ended', handleEnded);
+    };
+  }, []);
+
   return (
     <section className="framer-15w1qw8" data-framer-name="Hero" id="hero">
       <div className="framer-1p46al4" data-framer-name="Container">
         <div className="framer-1g9zx9" data-framer-name="Header">
-          <div className="framer-42n1mj hidden-1m3130y" data-framer-appear-id="42n1mj" data-framer-name="Year" style={{ opacity: "1", transform: "none" }}>
-            <div className="framer-1cnglmn" data-framer-component-type="RichTextContainer" style={{ transform: "none" }}>
-              <p className="framer-text framer-styles-preset-myvcqd" data-styles-preset="vnfdw_xAY" dir="auto" style={{ "--framer-text-alignment": "left" }}>/2026</p>
-            </div>
+          <div id="hero-video-wrapper" className="hero-video-card">
+            <video
+              ref={videoRef}
+              id="hero-boomerang-video"
+              src="/images/hero-boomerang.mp4"
+              autoPlay
+              muted
+              playsInline
+              preload="auto"
+            />
           </div>
           <div className="framer-1ws1c3f" data-framer-name="Content Wrapper">
             <div className="framer-mklr9n" data-framer-appear-id="mklr9n" data-framer-name="Text Wrapper" style={{ opacity: "1", transform: "none" }}>
@@ -81,10 +137,10 @@ export default function HeroSection() {
                   >
                     <img
                       decoding="async"
-                      width="1200"
-                      height="1200"
-                      src="/images/daniel-hartono.png"
-                      alt="Daniel Hartono"
+                      width="682"
+                      height="682"
+                      src="/images/adarsh-baghel.jpg"
+                      alt="Adarsh Baghel"
                       style={{
                         display: "block",
                         width: "100%",
@@ -117,7 +173,7 @@ export default function HeroSection() {
                         "--framer-text-color": "var(--extracted-r6o4lv, var(--token-fcdd5164-bf55-48ca-a517-fc569e2d93cc, rgb(17, 17, 17)))",
                       }}
                     >
-                      Daniel Hartono
+                      Adarsh Baghel
                     </p>
                   </div>
                   <div
@@ -139,7 +195,7 @@ export default function HeroSection() {
                         "--framer-text-color": "var(--extracted-r6o4lv, var(--token-e4c01179-4e7b-45a8-915a-d5bcd5f31dc2, rgb(51, 51, 51)))",
                       }}
                     >
-                      Founder at Aurora Labs
+                      Founder at RSENL AI LABS
                     </p>
                   </div>
                 </div>
@@ -181,15 +237,29 @@ export default function HeroSection() {
               </div>
             </div>
           </div>
-          <div className="framer-1l0q9pj hero-video-card" data-framer-appear-id="1l0q9pj" data-framer-name="Visual" style={{ opacity: "1", transform: "none" }}>
-            <video
-              id="hero-boomerang-video"
-              src="/images/hero.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-            />
+          <div className="framer-1l0q9pj" data-framer-appear-id="1l0q9pj" data-framer-name="Visual" style={{ opacity: "1", transform: "none" }}>
+            <div className="ssr-variant">
+              <div className="framer-13gmec1">
+                <div style={{ position: "absolute", borderRadius: "inherit", cornerShape: "inherit", top: "0", right: "0", bottom: "0", left: "0" }} data-framer-background-image-wrapper="true">
+                  <img
+                    decoding="async"
+                    width="1232"
+                    height="928"
+                    src="https://avatars.githubusercontent.com/u/135740458?v=4"
+                    alt="Sourabh Chouhan, Frontend Developer"
+                    style={{
+                      display: "block",
+                      width: "100%",
+                      height: "100%",
+                      borderRadius: "inherit",
+                      cornerShape: "inherit",
+                      objectPosition: "center",
+                      objectFit: "cover",
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
