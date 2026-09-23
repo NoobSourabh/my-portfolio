@@ -1,9 +1,11 @@
 'use client';
 
+import { withBasePath } from '../../lib/site-paths';
+
 const summitImages = [
-  '/images/india-ai-summit-stage.png',
-  '/images/india-ai-summit-exhibition.png',
-  '/images/india-ai-summit-demo.png',
+  withBasePath('/images/india-ai-summit-stage.png'),
+  withBasePath('/images/india-ai-summit-exhibition.png'),
+  withBasePath('/images/india-ai-summit-demo.png'),
 ];
 
 const activityPattern = [
@@ -39,7 +41,7 @@ function SummitCard() {
   return (
     <article className="backed-card summit-card">
       <div className="backed-card__topline">
-        <img src="/images/rsenl transparent logo.svg" alt="RSENL AI Labs" />
+        <img src={withBasePath('/images/rsenl transparent logo.svg')} alt="RSENL AI Labs" />
       </div>
       <div className="backed-card__copy">
         <h3>Represented RSENL AI Labs at the India AI Impact Summit 2026.</h3>
@@ -54,7 +56,7 @@ function GithubActivityCard() {
   return (
     <article className="backed-card github-card">
       <div className="backed-card__topline">
-        <img className="github-card__logo" src="/images/tools/git-github.svg" alt="GitHub" />
+        <img className="github-card__logo" src={withBasePath('/images/tools/git-github.svg')} alt="GitHub" />
       </div>
       <div className="backed-card__copy">
         <h3>Top contributor</h3>

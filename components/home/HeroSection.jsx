@@ -268,7 +268,7 @@ export default function HeroSection() {
                       decoding="async"
                       width="682"
                       height="682"
-                      src="/images/adarsh-baghel.jpg"
+                      src={withBasePath('/images/adarsh-baghel.jpg')}
                       alt="Adarsh Baghel"
                       style={{
                         display: "block",
@@ -374,7 +374,7 @@ export default function HeroSection() {
                     decoding="async"
                     width="1232"
                     height="928"
-                    src="/images/PORTRAIT.png"
+                    src={withBasePath('/images/PORTRAIT.png')}
                     alt="Sourabh Chouhan, Frontend Developer"
                     style={{
                       display: "block",

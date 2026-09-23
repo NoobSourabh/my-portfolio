@@ -12,8 +12,6 @@ if (!basePath) {
 const textExtensions = new Set(['.html', '.js', '.css', '.json', '.txt', '.webmanifest']);
 
 export function prefixExportContent(content) {
-  const bp = basePath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-
   return content
     .replace(
       /\b(src|href|poster|content|action)=(["'])\/(?!\/)(?!myportfolio\/)/gi,
@@ -21,7 +19,11 @@ export function prefixExportContent(content) {
     )
     .replace(/url\((["']?)\/(?!\/)(?!myportfolio\/)/g, (_, quote) => `url(${quote}${basePath}/`)
     .replace(/\bfetch\((["'])\/(?!\/)(?!myportfolio\/)/g, (_, quote) => `fetch(${quote}${basePath}/`)
-    .replace(/(["'])\/(?!\/)(?!myportfolio\/)/g, (_, quote) => `${quote}${basePath}/`);
+    .replace(/(["'])\/(images\/[^"']+)/g, (_, quote, rest) => `${quote}${basePath}/${rest}`)
+    .replace(/(["'])\/(profile\.json)/g, (_, quote, rest) => `${quote}${basePath}/${rest}`)
+    .replace(/(["'])\/(fonts\/[^"']+)/g, (_, quote, rest) => `${quote}${basePath}/${rest}`)
+    .replace(/(["'])\/(vendor\/[^"']+)/g, (_, quote, rest) => `${quote}${basePath}/${rest}`)
+    .replace(/(["'])\/(site\.webmanifest)/g, (_, quote, rest) => `${quote}${basePath}/${rest}`);
 }
 
 function walk(dir) {
@@ -34,7 +36,7 @@ function walk(dir) {
     }
 
     const ext = path.extname(entry.name).toLowerCase();
-    if (!textExtensions.has(ext)) {
+    if (!textExtensions.has(ext) || entry.name === 'profile.js') {
       continue;
     }
 

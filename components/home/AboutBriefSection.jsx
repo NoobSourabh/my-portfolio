@@ -1,22 +1,23 @@
 import ScrollIntro from '../ScrollIntro';
+import { withBasePath } from '../../lib/site-paths';
 
 const tools = [
-  ['React', '/images/tools/react.svg'],
-  ['TypeScript', '/images/tools/typescript.svg'],
-  ['Next.js', '/images/tools/nextjs.svg'],
-  ['JavaScript', '/images/tools/javascript.svg'],
-  ['GitHub', '/images/tools/git-github.svg'],
-  ['Tailwind CSS', '/images/tools/tailwindcss.svg'],
-  ['GSAP', '/images/tools/gsap.svg'],
-  ['Framer Motion', '/images/tools/framer-motion.svg'],
-  ['HTML5', '/images/tools/html5.svg'],
-  ['CSS3', '/images/tools/css3.svg'],
-  ['Redux', '/images/tools/redux.svg'],
-  ['Zustand', '/images/tools/zustand.svg'],
-  ['VS Code', '/images/tools/vscode.svg'],
-  ['Cursor', '/images/tools/cursor.svg'],
-  ['Windsurf', '/images/tools/windsurf.svg'],
-  ['Antigravity', '/images/tools/antigravity.svg'],
+  ['React', withBasePath('/images/tools/react.svg')],
+  ['TypeScript', withBasePath('/images/tools/typescript.svg')],
+  ['Next.js', withBasePath('/images/tools/nextjs.svg')],
+  ['JavaScript', withBasePath('/images/tools/javascript.svg')],
+  ['GitHub', withBasePath('/images/tools/git-github.svg')],
+  ['Tailwind CSS', withBasePath('/images/tools/tailwindcss.svg')],
+  ['GSAP', withBasePath('/images/tools/gsap.svg')],
+  ['Framer Motion', withBasePath('/images/tools/framer-motion.svg')],
+  ['HTML5', withBasePath('/images/tools/html5.svg')],
+  ['CSS3', withBasePath('/images/tools/css3.svg')],
+  ['Redux', withBasePath('/images/tools/redux.svg')],
+  ['Zustand', withBasePath('/images/tools/zustand.svg')],
+  ['VS Code', withBasePath('/images/tools/vscode.svg')],
+  ['Cursor', withBasePath('/images/tools/cursor.svg')],
+  ['Windsurf', withBasePath('/images/tools/windsurf.svg')],
+  ['Antigravity', withBasePath('/images/tools/antigravity.svg')],
 ];
 
 export default function AboutBriefSection() {
@@ -40,7 +41,7 @@ export default function AboutBriefSection() {
 
           <div className="about-orbit__content">
             <ScrollIntro />
-            <a className="about-orbit__cta" href="/about">About Me</a>
+            <a className="about-orbit__cta" href={withBasePath('/about')}>About Me</a>
           </div>
         </div>
       </div>

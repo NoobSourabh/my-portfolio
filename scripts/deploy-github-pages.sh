@@ -9,6 +9,7 @@ export NEXT_PUBLIC_SITE_URL=https://noobsourabh.github.io/myportfolio
 
 npm run build
 node scripts/prefix-export-paths.mjs
+cp public/profile.js out/profile.js
 
 cd out
 rm -rf .git
