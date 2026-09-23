@@ -75,21 +75,49 @@ export default function HeroSection() {
       setIntroPhase('settled');
     }
 
-    if (shouldPlayIntro) introTimer = window.setTimeout(() => {
-      const slot = videoSlotRef.current;
-      if (!slot) return;
+    const FULLSCREEN_HOLD_MS = 2000;
+    const FULLSCREEN_MAX_WAIT_MS = 12000;
 
-      const { top, left, width, height } = slot.getBoundingClientRect();
-      const wrapper = document.getElementById('hero-video-wrapper');
-      if (!wrapper) return;
+    let maxWaitTimer;
 
-      wrapper.style.setProperty('--hero-video-top', `${top}px`);
-      wrapper.style.setProperty('--hero-video-left', `${left}px`);
-      wrapper.style.setProperty('--hero-video-width', `${width}px`);
-      wrapper.style.setProperty('--hero-video-height', `${height}px`);
-      setIntroPhase('returning');
-      settleTimer = window.setTimeout(() => setIntroPhase('settled'), 1100);
-    }, 2000);
+    const beginIntroReturn = () => {
+      if (introTimer) return;
+
+      if (maxWaitTimer) {
+        window.clearTimeout(maxWaitTimer);
+        maxWaitTimer = undefined;
+      }
+
+      introTimer = window.setTimeout(() => {
+        const slot = videoSlotRef.current;
+        if (!slot) return;
+
+        const { top, left, width, height } = slot.getBoundingClientRect();
+        const wrapper = document.getElementById('hero-video-wrapper');
+        if (!wrapper) return;
+
+        wrapper.style.setProperty('--hero-video-top', `${top}px`);
+        wrapper.style.setProperty('--hero-video-left', `${left}px`);
+        wrapper.style.setProperty('--hero-video-width', `${width}px`);
+        wrapper.style.setProperty('--hero-video-height', `${height}px`);
+        setIntroPhase('returning');
+        settleTimer = window.setTimeout(() => setIntroPhase('settled'), 1100);
+      }, FULLSCREEN_HOLD_MS);
+    };
+
+    const handlePlaying = () => beginIntroReturn();
+
+    if (shouldPlayIntro) {
+      video.addEventListener('playing', handlePlaying, { once: true });
+
+      // Cached/fast loads may already be playing before the listener is attached.
+      if (!video.paused && video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+        beginIntroReturn();
+      } else {
+        // Avoid leaving first-time visitors stuck in fullscreen if playback never starts.
+        maxWaitTimer = window.setTimeout(beginIntroReturn, FULLSCREEN_MAX_WAIT_MS);
+      }
+    }
 
     // Timeline of hero-boomerang.mp4:
     // 0s  -> 10s: First fully playing (normal forward run)
@@ -135,7 +163,9 @@ export default function HeroSection() {
     return () => {
       if (introTimer) window.clearTimeout(introTimer);
       if (settleTimer) window.clearTimeout(settleTimer);
+      if (maxWaitTimer) window.clearTimeout(maxWaitTimer);
       cancelAnimationFrame(animId);
+      video.removeEventListener('playing', handlePlaying);
       video.removeEventListener('ended', handleEnded);
       wrapper?.removeEventListener('transitionend', handleIntroReturn);
     };
