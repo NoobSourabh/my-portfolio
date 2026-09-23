@@ -3,6 +3,12 @@
 import { useRef, useLayoutEffect, useState } from 'react';
 import { gsap } from 'gsap';
 
+const MOBILE_MAX_WIDTH = 809.98;
+
+function isMobileViewport() {
+  return window.matchMedia(`(max-width: ${MOBILE_MAX_WIDTH}px)`).matches;
+}
+
 export default function HeroSection() {
   const videoRef = useRef(null);
   const videoSlotRef = useRef(null);
@@ -51,13 +57,19 @@ export default function HeroSection() {
 
     // Keep the opening shot full screen for two seconds, then fly it back into its slot.
     // Window-scoped state survives client navigation but resets on a full refresh.
+    const isMobile = isMobileViewport();
     const isInitialHomeLoad = window.__portfolioHomeIntroEligible ??= window.location.pathname === '/';
-    const shouldPlayIntro = isInitialHomeLoad && (!window.__portfolioHeroIntroPlayed || introStartedHereRef.current);
+    const shouldPlayIntro = !isMobile && isInitialHomeLoad && (!window.__portfolioHeroIntroPlayed || introStartedHereRef.current);
     let introTimer;
+    let settleTimer;
 
     if (shouldPlayIntro) {
       window.__portfolioHeroIntroPlayed = true;
       introStartedHereRef.current = true;
+    } else if (isMobile && isInitialHomeLoad && !window.__portfolioHeroIntroPlayed) {
+      // Mobile first visit: skip the fullscreen intro but still play entrance animations.
+      window.__portfolioHeroIntroPlayed = true;
+      setIntroPhase('settled');
     } else {
       setIsHomepageReturn(true);
       setIntroPhase('settled');
@@ -76,6 +88,7 @@ export default function HeroSection() {
       wrapper.style.setProperty('--hero-video-width', `${width}px`);
       wrapper.style.setProperty('--hero-video-height', `${height}px`);
       setIntroPhase('returning');
+      settleTimer = window.setTimeout(() => setIntroPhase('settled'), 1100);
     }, 2000);
 
     // Timeline of hero-boomerang.mp4:
@@ -121,6 +134,7 @@ export default function HeroSection() {
 
     return () => {
       if (introTimer) window.clearTimeout(introTimer);
+      if (settleTimer) window.clearTimeout(settleTimer);
       cancelAnimationFrame(animId);
       video.removeEventListener('ended', handleEnded);
       wrapper?.removeEventListener('transitionend', handleIntroReturn);

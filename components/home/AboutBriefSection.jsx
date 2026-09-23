@@ -40,7 +40,7 @@ export default function AboutBriefSection() {
 
           <div className="about-orbit__content">
             <ScrollIntro />
-            <a href="/about">About Sourabh</a>
+            <a href="/about">About Me</a>
           </div>
         </div>
       </div>

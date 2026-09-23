@@ -20,6 +20,12 @@ const CARD_GROUPS = [
   { container: '.backed-by-work-grid', cards: ':scope > .backed-card' },
 ];
 
+const MOBILE_MAX_WIDTH = 809.98;
+
+function isMobileViewport() {
+  return window.matchMedia(`(max-width: ${MOBILE_MAX_WIDTH}px)`).matches;
+}
+
 export default function ScrollAnimations() {
   const pathname = usePathname();
   const lastPathRef = useRef(null);
@@ -72,13 +78,17 @@ export default function ScrollAnimations() {
       const adarshTestimonial = heroVisualRow?.querySelector('.framer-q9d11');
       const heroPortrait = heroVisualRow?.querySelector('.framer-1l0q9pj');
       if (shouldAnimateHeroVisuals && heroVisualRow && (adarshTestimonial || heroPortrait)) {
-        const visualTimeline = gsap.timeline({
-          scrollTrigger: {
-            trigger: heroVisualRow,
-            start: 'top 70%',
-            once: true,
-          },
-        });
+        const visualTimeline = gsap.timeline(
+          isMobileViewport()
+            ? { delay: 0.45 }
+            : {
+                scrollTrigger: {
+                  trigger: heroVisualRow,
+                  start: 'top 70%',
+                  once: true,
+                },
+              }
+        );
 
         if (adarshTestimonial) {
           visualTimeline.fromTo(

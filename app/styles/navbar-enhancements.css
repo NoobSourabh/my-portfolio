@@ -54,21 +54,115 @@
   border-radius: inherit;
 }
 
-/* Mobile nav: always show Work / About / Contact (Framer phone-closed state clips them) */
+/* Mobile nav: CSS checkbox toggle — works even if React/JS hasn't hydrated yet */
 @media (max-width: 809.98px) {
-  .framer-1jk3wwm-container nav[data-framer-name='Phone Closed'],
-  .framer-1jk3wwm-container nav[data-framer-name='Phone Closed'].navbar-mobile-open {
+  .framer-1jk3wwm-container {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10001 !important;
+  }
+
+  .framer-1jk3wwm-container nav[data-framer-name='Phone Closed'] {
+    width: 100% !important;
+  }
+
+  .framer-1jk3wwm-container nav[data-framer-name='Phone Closed'].framer-v-1nr8znp.framer-1vxy7d1 {
+    width: 100% !important;
+  }
+
+  .navbar-mobile-checkbox {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .framer-1jk3wwm-container nav[data-framer-name='Phone Closed']:not(:has(.navbar-mobile-checkbox:checked)) {
+    height: 56px !important;
+    overflow: hidden !important;
+    padding-bottom: 12px !important;
+  }
+
+  .framer-1jk3wwm-container nav[data-framer-name='Phone Closed']:not(:has(.navbar-mobile-checkbox:checked)) .framer-18a3s1j {
+    display: none !important;
+  }
+
+  .framer-1jk3wwm-container nav[data-framer-name='Phone Closed'] .framer-s7i71q,
+  .framer-1jk3wwm-container nav[data-framer-name='Phone Closed'] .navbar-menu-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    cursor: pointer;
+    flex-shrink: 0;
+    border: none;
+    background: transparent;
+    padding: 0;
+    color: inherit;
+    font: inherit;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    position: relative;
+    z-index: 2;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .framer-1jk3wwm-container nav[data-framer-name='Phone Closed'] .navbar-menu-button:focus-visible {
+    outline: 2px solid rgb(17, 17, 17);
+    outline-offset: 2px;
+    border-radius: 8px;
+  }
+
+  .framer-1jk3wwm-container nav[data-framer-name='Phone Closed'] .navbar-menu-button svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 24px;
+    height: 24px;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+  }
+
+  .framer-1jk3wwm-container nav[data-framer-name='Phone Closed'] .navbar-menu-button .navbar-menu-icon-open {
+    display: block !important;
+  }
+
+  .framer-1jk3wwm-container nav[data-framer-name='Phone Closed'] .navbar-menu-button .navbar-menu-icon-close {
+    display: none !important;
+  }
+
+  .framer-1jk3wwm-container nav[data-framer-name='Phone Closed']:has(.navbar-mobile-checkbox:checked) .navbar-menu-button .navbar-menu-icon-open {
+    display: none !important;
+  }
+
+  .framer-1jk3wwm-container nav[data-framer-name='Phone Closed']:has(.navbar-mobile-checkbox:checked) .navbar-menu-button .navbar-menu-icon-close {
+    display: block !important;
+  }
+
+  .framer-1jk3wwm-container nav[data-framer-name='Phone Closed']:has(.navbar-mobile-checkbox:checked) {
     height: auto !important;
     overflow: visible !important;
     padding-bottom: 24px !important;
   }
 
-  .framer-1jk3wwm-container nav[data-framer-name='Phone Closed'] .framer-s7i71q {
-    display: none;
-  }
-
-  .framer-1jk3wwm-container nav[data-framer-name='Phone Closed'] .framer-18a3s1j {
-    display: flex;
+  .framer-1jk3wwm-container nav[data-framer-name='Phone Closed']:has(.navbar-mobile-checkbox:checked) .framer-18a3s1j {
+    display: flex !important;
+    flex-direction: column;
+    width: 100%;
+    gap: 24px;
   }
 
   .framer-1jk3wwm-container nav[data-framer-name='Phone Closed'] .framer-kpjn1v {
