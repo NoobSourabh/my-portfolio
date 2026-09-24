@@ -10,12 +10,13 @@ const siteTitle = 'Sourabh Chouhan — Frontend Developer';
 const siteDescription =
   'Sourabh Chouhan - Frontend Developer portfolio showcasing responsive web apps, landing pages, and AI projects.';
 const faviconImage = '/images/mascot%20Background%20Removed.png';
-const shareImage = '/images/mascot.png';
+const shareImage = faviconImage;
 
 function getMetadataBase() {
   const url =
     process.env.NEXT_PUBLIC_SITE_URL ??
-    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
+    process.env.URL ??
+    'http://localhost:3000';
   return new URL(url);
 }
 
