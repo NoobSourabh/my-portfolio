@@ -2,6 +2,7 @@
 
 import { useRef, useLayoutEffect, useState } from 'react';
 import { gsap } from 'gsap';
+import { preloadSiteAssets } from '../../lib/preload-assets';
 
 const MOBILE_MAX_WIDTH = 809.98;
 
@@ -107,6 +108,12 @@ export default function HeroSection() {
 
     const handlePlaying = () => beginIntroReturn();
 
+    // Warm home + about assets in the background the moment playback starts.
+    video.addEventListener('playing', preloadSiteAssets, { once: true });
+    if (!video.paused && video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+      preloadSiteAssets();
+    }
+
     if (shouldPlayIntro) {
       video.addEventListener('playing', handlePlaying, { once: true });
 
@@ -166,6 +173,7 @@ export default function HeroSection() {
       if (maxWaitTimer) window.clearTimeout(maxWaitTimer);
       cancelAnimationFrame(animId);
       video.removeEventListener('playing', handlePlaying);
+      video.removeEventListener('playing', preloadSiteAssets);
       video.removeEventListener('ended', handleEnded);
       wrapper?.removeEventListener('transitionend', handleIntroReturn);
     };
