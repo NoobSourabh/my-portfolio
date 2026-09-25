@@ -1,9 +1,11 @@
 'use client';
 
+import Image from 'next/image';
+
 const summitImages = [
-  '/images/india-ai-summit-stage.png',
-  '/images/india-ai-summit-exhibition.png',
-  '/images/india-ai-summit-demo.png',
+  '/images/india-ai-summit-stage.webp',
+  '/images/india-ai-summit-exhibition.webp',
+  '/images/india-ai-summit-demo.webp',
 ];
 
 const activityPattern = [
@@ -16,9 +18,17 @@ const activityPattern = [
   0, 1, 2, 1, 3, 1, 0, 2, 1, 0, 1, 2, 1, 2, 0, 1, 2, 1,
 ];
 
+function SummitGalleryImage({ src, alt = '' }) {
+  return (
+    <div className="summit-gallery__image">
+      <Image src={src} alt={alt} fill sizes="190px" loading="lazy" style={{ objectFit: 'cover' }} />
+    </div>
+  );
+}
+
 function SummitGallery() {
   const sequence = summitImages.map((src, index) => (
-    <img key={`${src}-${index}`} src={src} alt="India AI Impact Summit" />
+    <SummitGalleryImage key={`${src}-${index}`} src={src} alt="India AI Impact Summit" />
   ));
 
   return (
@@ -27,7 +37,7 @@ function SummitGallery() {
         <div className="summit-gallery__sequence">{sequence}</div>
         <div className="summit-gallery__sequence" aria-hidden="true">
           {summitImages.map((src, index) => (
-            <img key={`${src}-duplicate-${index}`} src={src} alt="" />
+            <SummitGalleryImage key={`${src}-duplicate-${index}`} src={src} />
           ))}
         </div>
       </div>

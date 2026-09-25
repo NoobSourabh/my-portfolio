@@ -1,3 +1,5 @@
+import OptimizedImage from '../OptimizedImage';
+
 export default function AtlasFinanceContent() {
   return (
     <div data-framer-root="" className="framer-PzliJ framer-xIMGr framer-kZscH framer-r7dCw framer-ZROfX framer-HmoXg framer-9DwZu framer-33yovy" style={{ "minHeight": "100vh", "width": "auto", "display": "contents" }}>
@@ -45,7 +47,7 @@ export default function AtlasFinanceContent() {
 <div className="ssr-variant">
 <div className="framer-ictoeq" data-framer-name="Thumbnail">
 <div style={{ "position": "absolute", "borderRadius": "inherit", "cornerShape": "inherit", "top": "0", "right": "0", "bottom": "0", "left": "0" }} data-framer-background-image-wrapper="true">
-<img decoding="async" width="1232" height="928" src="/images/sprout.png" alt="Sprout AI Brain" style={{ "display": "block", "width": "100%", "height": "100%", "borderRadius": "inherit", "cornerShape": "inherit", "objectPosition": "center", "objectFit": "cover" }} />
+<OptimizedImage src="/images/sprout.webp" alt="Sprout AI Brain" sizes="(max-width: 809px) 100vw, 50vw" />
 </div>
 </div>
 </div>
@@ -130,7 +132,7 @@ export default function AtlasFinanceContent() {
 <div className="framer-2ctex3" data-framer-name="Image Container" style={{ "borderBottomLeftRadius": "40px", "borderBottomRightRadius": "40px", "borderTopLeftRadius": "40px", "borderTopRightRadius": "40px" }}>
 <div className="framer-qapzcu" style={{ "filter": "blur(0px)", "WebkitFilter": "blur(0px)" }}>
 <div style={{ "position": "absolute", "borderRadius": "inherit", "cornerShape": "inherit", "top": "0", "right": "0", "bottom": "0", "left": "0" }} data-framer-background-image-wrapper="true">
-<img decoding="async" width="1232" height="928" src="/images/banana.png" alt="Banana Shake Landing Page & Chrome Extension" style={{ "display": "block", "width": "100%", "height": "100%", "borderRadius": "inherit", "cornerShape": "inherit", "objectPosition": "center", "objectFit": "cover" }} />
+<OptimizedImage src="/images/banana.webp" alt="Banana Shake Landing Page & Chrome Extension" sizes="(max-width: 809px) 100vw, 50vw" />
 </div>
 </div>
 </div>
@@ -155,7 +157,7 @@ export default function AtlasFinanceContent() {
 <div className="framer-2ctex3" data-framer-name="Image Container" style={{ "borderBottomLeftRadius": "40px", "borderBottomRightRadius": "40px", "borderTopLeftRadius": "40px", "borderTopRightRadius": "40px" }}>
 <div className="framer-qapzcu" style={{ "filter": "blur(0px)", "WebkitFilter": "blur(0px)" }}>
 <div style={{ "position": "absolute", "borderRadius": "inherit", "cornerShape": "inherit", "top": "0", "right": "0", "bottom": "0", "left": "0" }} data-framer-background-image-wrapper="true">
-<img decoding="async" width="1232" height="928" src="/images/banana.png" alt="Banana Shake Landing Page & Chrome Extension" style={{ "display": "block", "width": "100%", "height": "100%", "borderRadius": "inherit", "cornerShape": "inherit", "objectPosition": "center", "objectFit": "cover" }} />
+<OptimizedImage src="/images/banana.webp" alt="Banana Shake Landing Page & Chrome Extension" sizes="(max-width: 809px) 100vw, 50vw" />
 </div>
 </div>
 </div>
@@ -180,7 +182,7 @@ export default function AtlasFinanceContent() {
 <div className="framer-2ctex3" data-framer-name="Image Container" style={{ "borderBottomLeftRadius": "24px", "borderBottomRightRadius": "24px", "borderTopLeftRadius": "24px", "borderTopRightRadius": "24px" }}>
 <div className="framer-qapzcu" style={{ "filter": "blur(0px)", "WebkitFilter": "blur(0px)" }}>
 <div style={{ "position": "absolute", "borderRadius": "inherit", "cornerShape": "inherit", "top": "0", "right": "0", "bottom": "0", "left": "0" }} data-framer-background-image-wrapper="true">
-<img decoding="async" width="1232" height="928" src="/images/banana.png" alt="Banana Shake Landing Page & Chrome Extension" style={{ "display": "block", "width": "100%", "height": "100%", "borderRadius": "inherit", "cornerShape": "inherit", "objectPosition": "center", "objectFit": "cover" }} />
+<OptimizedImage src="/images/banana.webp" alt="Banana Shake Landing Page & Chrome Extension" sizes="(max-width: 809px) 100vw, 50vw" />
 </div>
 </div>
 </div>
@@ -205,7 +207,7 @@ export default function AtlasFinanceContent() {
 <div className="framer-2ctex3" data-framer-name="Image Container" style={{ "borderBottomLeftRadius": "40px", "borderBottomRightRadius": "40px", "borderTopLeftRadius": "40px", "borderTopRightRadius": "40px" }}>
 <div className="framer-qapzcu" style={{ "filter": "blur(0px)", "WebkitFilter": "blur(0px)" }}>
 <div style={{ "position": "absolute", "borderRadius": "inherit", "cornerShape": "inherit", "top": "0", "right": "0", "bottom": "0", "left": "0" }} data-framer-background-image-wrapper="true">
-<img decoding="async" width="1232" height="928" src="/images/moji.png" alt="Moji AI Motion Graphics" style={{ "display": "block", "width": "100%", "height": "100%", "borderRadius": "inherit", "cornerShape": "inherit", "objectPosition": "center", "objectFit": "cover" }} />
+<OptimizedImage src="/images/moji.webp" alt="Moji AI Motion Graphics" sizes="(max-width: 809px) 100vw, 50vw" />
 </div>
 </div>
 </div>
@@ -230,7 +232,7 @@ export default function AtlasFinanceContent() {
 <div className="framer-2ctex3" data-framer-name="Image Container" style={{ "borderBottomLeftRadius": "40px", "borderBottomRightRadius": "40px", "borderTopLeftRadius": "40px", "borderTopRightRadius": "40px" }}>
 <div className="framer-qapzcu" style={{ "filter": "blur(0px)", "WebkitFilter": "blur(0px)" }}>
 <div style={{ "position": "absolute", "borderRadius": "inherit", "cornerShape": "inherit", "top": "0", "right": "0", "bottom": "0", "left": "0" }} data-framer-background-image-wrapper="true">
-<img decoding="async" width="1232" height="928" src="/images/moji.png" alt="Moji AI Motion Graphics" style={{ "display": "block", "width": "100%", "height": "100%", "borderRadius": "inherit", "cornerShape": "inherit", "objectPosition": "center", "objectFit": "cover" }} />
+<OptimizedImage src="/images/moji.webp" alt="Moji AI Motion Graphics" sizes="(max-width: 809px) 100vw, 50vw" />
 </div>
 </div>
 </div>
@@ -255,7 +257,7 @@ export default function AtlasFinanceContent() {
 <div className="framer-2ctex3" data-framer-name="Image Container" style={{ "borderBottomLeftRadius": "24px", "borderBottomRightRadius": "24px", "borderTopLeftRadius": "24px", "borderTopRightRadius": "24px" }}>
 <div className="framer-qapzcu" style={{ "filter": "blur(0px)", "WebkitFilter": "blur(0px)" }}>
 <div style={{ "position": "absolute", "borderRadius": "inherit", "cornerShape": "inherit", "top": "0", "right": "0", "bottom": "0", "left": "0" }} data-framer-background-image-wrapper="true">
-<img decoding="async" width="1232" height="928" src="/images/moji.png" alt="Moji AI Motion Graphics" style={{ "display": "block", "width": "100%", "height": "100%", "borderRadius": "inherit", "cornerShape": "inherit", "objectPosition": "center", "objectFit": "cover" }} />
+<OptimizedImage src="/images/moji.webp" alt="Moji AI Motion Graphics" sizes="(max-width: 809px) 100vw, 50vw" />
 </div>
 </div>
 </div>

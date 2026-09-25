@@ -42,6 +42,9 @@
 .backed-card {
   min-width: 0;
   min-height: 0;
+  /* Safari/WebKit derives width from height via aspect-ratio on stretched grid
+     items unless the inline size is definite, blowing the card out of its track */
+  width: 100%;
   aspect-ratio: 0.72;
   display: flex;
   flex-direction: column;
@@ -118,13 +121,14 @@
   padding-right: 10px;
 }
 
-.summit-gallery img {
+.summit-gallery__image {
+  position: relative;
   display: block;
   width: 190px;
   height: 100%;
   flex: 0 0 190px;
+  overflow: hidden;
   border-radius: 12px;
-  object-fit: cover;
 }
 
 @keyframes summit-gallery-marquee {
@@ -347,7 +351,7 @@
     margin: auto 10px 0;
   }
 
-  .summit-gallery img {
+  .summit-gallery__image {
     width: 170px;
     flex-basis: 170px;
   }

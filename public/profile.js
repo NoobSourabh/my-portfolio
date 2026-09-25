@@ -297,14 +297,14 @@
         <div class="impact-summit-gallery" role="region" aria-label="AI summit moments">
           <div class="impact-summit-track">
             <div class="impact-summit-sequence">
-              <img src="/images/india-ai-summit-stage.png" alt="AI summit stage with an abstract light installation" loading="lazy" />
-              <img src="/images/india-ai-summit-exhibition.png" alt="AI exhibition installation with visitors in silhouette" loading="lazy" />
-              <img src="/images/india-ai-summit-demo.png" alt="People exploring an interactive AI demonstration" loading="lazy" />
+              <img src="/images/india-ai-summit-stage.webp" alt="AI summit stage with an abstract light installation" loading="lazy" width="400" height="225" />
+              <img src="/images/india-ai-summit-exhibition.webp" alt="AI exhibition installation with visitors in silhouette" loading="lazy" width="400" height="225" />
+              <img src="/images/india-ai-summit-demo.webp" alt="People exploring an interactive AI demonstration" loading="lazy" width="400" height="225" />
             </div>
             <div class="impact-summit-sequence" aria-hidden="true">
-              <img src="/images/india-ai-summit-stage.png" alt="" loading="lazy" />
-              <img src="/images/india-ai-summit-exhibition.png" alt="" loading="lazy" />
-              <img src="/images/india-ai-summit-demo.png" alt="" loading="lazy" />
+              <img src="/images/india-ai-summit-stage.webp" alt="" loading="lazy" width="400" height="225" />
+              <img src="/images/india-ai-summit-exhibition.webp" alt="" loading="lazy" width="400" height="225" />
+              <img src="/images/india-ai-summit-demo.webp" alt="" loading="lazy" width="400" height="225" />
             </div>
           </div>
         </div>
